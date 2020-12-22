@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    >
+
+    <data>
+
+        <variable
+            name="title"
+            type="String" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:lines="1"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:text="@{title}"
+        android:minWidth="@dimen/_90sdp"
+
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:background="@color/white"
+
+        />
+</layout>

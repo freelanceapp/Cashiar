@@ -32,7 +32,7 @@
     <string name="you_do_not_have_any_sup_to_add_an_item_click_the_button">You do not have any Suppliers to add an item, click the button (+)</string>
     <string name="you_do_not_have_any_customer_to_add_an_item_click_the_button">You do not have any Customer to add an item, click the button (+)</string>
 
-    <string name="search2">Search2</string>
+    <string name="search2">Search</string>
     <string name="department">Department</string>
     <string name="sell_b">Sell by</string>
     <string name="weight">Weight</string>
@@ -130,4 +130,6 @@
     <string name="amount_required">ِAmount Required</string>
     <string name="amount_paid">Amount Paid</string>
     <string name="thanks_for_your_use">Thanks for your use</string>
+    <string name="add_expenses">Add Expenses</string>
+    <string name="add_supplier">Add Supplier</string>
 </resources>

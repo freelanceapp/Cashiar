@@ -130,4 +130,6 @@
     <string name="amount_required">ِالمبلغ المطلوب</string>
     <string name="amount_paid">المبلغ المدفوع</string>
     <string name="thanks_for_your_use">شكرا على استخدامكم</string>
+    <string name="add_expenses">اضافة مصروف</string>
+    <string name="add_supplier">اضافة مورد</string>
 </resources>

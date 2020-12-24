@@ -15,7 +15,15 @@
         <variable
             name="billmodel"
             type="com.cashiar.models.BillModel" />
-
+        <variable
+            name="tax"
+            type="String" />
+        <variable
+            name="currency"
+            type="String" />
+        <variable
+            name="address"
+            type="String" />
         <variable
             name="model"
             type="com.cashiar.models.CreateOrderModel" />
@@ -216,7 +224,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text="@{total}"
+                            android:text="@{total+currency}"
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_16sdp" />
                     </LinearLayout>
@@ -269,7 +277,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/rounded_empty"
                             android:gravity="center"
-                            android:text='@{model.discount_value+""}'
+                            android:text='@{model.discount_value+currency}'
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_16sdp" />
 
@@ -287,7 +295,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/rounded_empty"
                             android:gravity="center"
-                            android:text='@{model.total_price+""}'
+                            android:text='@{model.total_price+currency}'
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_16sdp" />
                     </LinearLayout>
@@ -325,7 +333,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text='@{model.total_price+""}'
+                            android:text='@{model.total_price+currency}'
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_16sdp" />
                     </LinearLayout>
@@ -357,7 +365,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text='@{model.paid_price+""}'
+                            android:text='@{model.paid_price+currency}'
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_16sdp" />
                     </LinearLayout>
@@ -389,11 +397,41 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:gravity="center"
-                            android:text='@{model.remaining_price+""}'
+                            android:text='@{model.remaining_price+currency}'
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_16sdp" />
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp">
 
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/tax_amount"
+                            android:textColor="@color/deptext"
+                            android:textSize="@dimen/_16sdp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:textColor="@color/deptext"
+                            android:textSize="@dimen/_16sdp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text='@{tax+""+currency}'
+                            android:textColor="@color/deptext"
+                            android:textSize="@dimen/_16sdp" />
+                    </LinearLayout>
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -419,7 +457,14 @@
 
                             />
                     </LinearLayout>
-
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/_3sdp"
+                        android:text="@{address}"
+                        android:textColor="@color/deptext"
+                        android:textSize="@dimen/_16sdp" />
                     <Button
                         android:id="@+id/btnConfirm"
                         android:layout_width="match_parent"

@@ -24,13 +24,15 @@ import java.util.List;
 
 public class ProductsSellAdapter extends RecyclerView.Adapter<ProductsSellAdapter.ProductsViewholder> {
 
-    public  String currency;
+    public String currency;
     private List<ItemCartModel> list;
     private Context context;
 
-    public ProductsSellAdapter(Context context, List<ItemCartModel> list) {
+    public ProductsSellAdapter(Context context, List<ItemCartModel> list, String currency) {
         this.list = list;
         this.context = context;
+        this.currency = currency;
+
     }
 
     @NonNull
@@ -42,7 +44,7 @@ public class ProductsSellAdapter extends RecyclerView.Adapter<ProductsSellAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ProductsViewholder holder, int position) {
-
+        holder.binding.setCurrency(currency);
         holder.binding.setModel(list.get(position));
 
     }

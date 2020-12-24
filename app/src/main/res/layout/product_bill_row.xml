@@ -9,6 +9,9 @@
         <variable
             name="lang"
             type="String" />
+        <variable
+            name="currency"
+            type="String" />
 
         <variable
             name="model"
@@ -43,7 +46,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_weight="1"
-            android:text='@{(model.amount*model.price_value)+""}'
+            android:text='@{(model.amount*model.price_value)+currency}'
             android:textColor="@color/deptext"
             android:textSize="@dimen/_16sdp" />
     </LinearLayout>

@@ -65,7 +65,7 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
     private Preferences preferences;
     private List<ItemCartModel> itemCartModelList;
     private ProductsSellAdapter productsSellAdapter;
-
+private String currecny="";
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -94,10 +94,16 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(this);
         binding.setModel(createOrderModel);
-        binding.setBillmodel(billModel);
         binding.setLogo("");
+        binding.setCurrency("");
+        binding.setAddress("");
+        binding.setTax("");
+        presenter = new ActivitBillSellPresenter(this, this);
+        presenter.getprofile(userModel);
+        binding.setBillmodel(billModel);
+
         binding.setTotal((createOrderModel.getTotal_price() - Double.parseDouble(taxamount) + createOrderModel.getDiscount_value()) + "");
-        productsSellAdapter = new ProductsSellAdapter(this, itemCartModelList);
+        productsSellAdapter = new ProductsSellAdapter(this, itemCartModelList,currecny);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
         binding.recView.setAdapter(productsSellAdapter);
         itemCartModelList.addAll(createOrderModel.getOrder_details());
@@ -108,8 +114,7 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
         binding.llBack.setOnClickListener(view -> {
             finish();
         });
-        presenter = new ActivitBillSellPresenter(this, this);
-        presenter.getprofile(userModel);
+
 
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,10 +178,15 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
     @Override
     public void onprofileload(UserModel body) {
         this.taxamount = body.getTax_amount();
+        currecny=body.getCurrency();
+        binding.setCurrency(currecny);
+        binding.setAddress(body.getAddress());
+        binding.setTax(taxamount);
         binding.setTotal((createOrderModel.getTotal_price() - Double.parseDouble(taxamount) + createOrderModel.getDiscount_value()) + "");
         if (body.getLogo() != null) {
             binding.setLogo(body.getLogo());
         }
+
     }
 
     //    private void takeScreenshot() {

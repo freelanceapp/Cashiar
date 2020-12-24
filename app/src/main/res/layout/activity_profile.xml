@@ -109,6 +109,7 @@
                 android:text="@{userModel.name}"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15sdp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/image"
                 android:textStyle="bold"

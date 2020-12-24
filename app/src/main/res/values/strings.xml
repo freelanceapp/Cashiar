@@ -132,4 +132,6 @@
     <string name="thanks_for_your_use">Thanks for your use</string>
     <string name="add_expenses">Add Expenses</string>
     <string name="add_supplier">Add Supplier</string>
+    <string name="update_product">Update Product</string>
+    <string name="paid_must_small_or">Paid Must Small Or Equal Total</string>
 </resources>

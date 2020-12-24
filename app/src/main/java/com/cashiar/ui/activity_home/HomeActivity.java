@@ -525,4 +525,9 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
         dialog.show();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
+    }
 }

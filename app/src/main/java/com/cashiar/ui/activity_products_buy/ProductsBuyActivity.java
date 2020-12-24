@@ -268,6 +268,7 @@ public class ProductsBuyActivity extends AppCompatActivity implements ProductsBu
     @Override
     protected void onRestart() {
         super.onRestart();
+        presenter.getprofile(userModel);
         if (preferences != null && preferences.getCartDatabuy(this) == null) {
             binding.setCartcount(0);
         }

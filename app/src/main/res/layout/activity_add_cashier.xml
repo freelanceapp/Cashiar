@@ -126,7 +126,9 @@
                         android:layout_marginTop="@dimen/_3sdp"
                         android:layout_marginEnd="@dimen/_5sdp"
                         android:background="@color/depic"
-                        custom:ignore="RtlCompat" />
+                        custom:ignore="RtlCompat"
+                        android:visibility="gone"
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"

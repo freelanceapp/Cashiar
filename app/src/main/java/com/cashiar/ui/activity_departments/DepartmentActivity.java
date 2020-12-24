@@ -107,4 +107,5 @@ public class DepartmentActivity extends AppCompatActivity implements DepartmentA
         Intent intent = new Intent(this, DiscountActivity.class);
         startActivity(intent);
     }
+
 }

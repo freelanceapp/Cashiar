@@ -58,7 +58,7 @@ public class CartBuyActivity extends AppCompatActivity implements CartBuyActivit
     private int coupon_id;
     private double discount;
     private String type;
-    private String currency="";
+    private String currency = "";
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -106,6 +106,9 @@ public class CartBuyActivity extends AppCompatActivity implements CartBuyActivit
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     coupon_id = 0;
+                    discount=0;
+                    type="";
+                    calculateTotal();
                 } else {
                     coupon_id = singleDiscountModels.get(i).getId();
                     discount = singleDiscountModels.get(i).getValue();
@@ -225,10 +228,10 @@ public class CartBuyActivity extends AppCompatActivity implements CartBuyActivit
 
     @Override
     public void onLoad() {
-        if(dialog==null){
+        if (dialog == null) {
             dialog = Common.createProgressDialog(this, getString(R.string.wait));
-            dialog.setCancelable(false);}
-        else {
+            dialog.setCancelable(false);
+        } else {
             dialog.dismiss();
         }
         dialog.show();
@@ -268,8 +271,8 @@ public class CartBuyActivity extends AppCompatActivity implements CartBuyActivit
 
     @Override
     public void onprofileload(UserModel body) {
-        this.currency=body.getCurrency();
-        cartSellBuyAdapter.currency=currency;
+        this.currency = body.getCurrency();
+        cartSellBuyAdapter.currency = currency;
         cartSellBuyAdapter.notifyDataSetChanged();
     }
 
@@ -304,9 +307,14 @@ public class CartBuyActivity extends AppCompatActivity implements CartBuyActivit
         }
     }
 
-//    @Override
+    //    @Override
 //    protected void onRestart() {
 //        super.onRestart();
 //        getdata();
 //    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
+    }
 }

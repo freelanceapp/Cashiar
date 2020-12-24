@@ -389,7 +389,10 @@ public class EditprofileActivity extends AppCompatActivity implements Editprofil
         model.setPhone(userModel.getPhone());
         model.setName(userModel.getName());
         model.setPhone_code(userModel.getPhone_code());
-        model.setTaxamount(userModel.getTax_amount() + "");
+        if(model.getTaxamount().equals("0")){
+            model.setTaxamount("");
+        }else {
+        model.setTaxamount(userModel.getTax_amount() + "");}
         binding.setEditModel(model);
     }
 
@@ -543,5 +546,9 @@ public class EditprofileActivity extends AppCompatActivity implements Editprofil
         }
     }
 
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
+    }
 }

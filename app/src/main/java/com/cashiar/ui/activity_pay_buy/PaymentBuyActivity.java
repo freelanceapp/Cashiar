@@ -94,11 +94,13 @@ public class PaymentBuyActivity extends AppCompatActivity implements PaymentBuyA
         binding.edtpaid.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.edtpaid.setError(null);
 
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.edtpaid.setError(null);
 
             }
 
@@ -106,7 +108,12 @@ public class PaymentBuyActivity extends AppCompatActivity implements PaymentBuyA
             public void afterTextChanged(Editable editable) {
                 try {
                     paid = Double.parseDouble(editable.toString());
-                    binding.tvstay.setText((total - paid) + "");
+
+                    if(paid<=total){
+                        binding.tvstay.setText((total - paid) + "");}
+                    else {
+                        binding.edtpaid.setError(getResources().getString(R.string.paid_must_small_or));
+                    }
                 } catch (Exception e) {
                     binding.tvstay.setText((total) + "");
                 }
@@ -186,10 +193,10 @@ public class PaymentBuyActivity extends AppCompatActivity implements PaymentBuyA
         singleCustomerSuplliersModels.clear();
         if (lang.equals("en")) {
 
-            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("Add"));
+            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("Add supllier"));
         } else {
 
-            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("اضافة"));
+            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("اضافة مورد"));
         }
         //Log.e("dlldldl",model.getData().size()+"");
         singleCustomerSuplliersModels.addAll(model.getData());

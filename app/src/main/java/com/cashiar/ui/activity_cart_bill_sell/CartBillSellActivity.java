@@ -251,6 +251,7 @@ public class CartBillSellActivity extends AppCompatActivity implements CartBillS
         super.onRestart();
         if (preferences != null) {
             getdata();
+            presenter.getprofile(userModel);
         }
     }
 }

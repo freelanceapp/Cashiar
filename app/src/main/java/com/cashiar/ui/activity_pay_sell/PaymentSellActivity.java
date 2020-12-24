@@ -81,9 +81,9 @@ public class PaymentSellActivity extends AppCompatActivity implements PaymentSel
         userModel = preferences.getUserData(this);
         createOrderModel = preferences.getCartData(this);
         binding.setDate(System.currentTimeMillis());
-        binding.tvTotal.setText(total + "");
+        binding.tvTotal.setText((total+createOrderModel.getDiscount_value()) + "");
         binding.tvstay.setText((total) + "");
-
+binding.tvdiscount.setText(createOrderModel.getDiscount_value()+"");
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
@@ -99,11 +99,13 @@ public class PaymentSellActivity extends AppCompatActivity implements PaymentSel
         binding.edtpaid.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.edtpaid.setError(null);
 
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.edtpaid.setError(null);
 
             }
 
@@ -111,7 +113,12 @@ public class PaymentSellActivity extends AppCompatActivity implements PaymentSel
             public void afterTextChanged(Editable editable) {
                 try {
                     paid = Double.parseDouble(editable.toString());
-                    binding.tvstay.setText((total - paid) + "");
+
+                    if(paid<=total){
+                    binding.tvstay.setText((total - paid) + "");}
+                    else {
+                        binding.edtpaid.setError(getResources().getString(R.string.paid_must_small_or));
+                    }
                 } catch (Exception e) {
                     binding.tvstay.setText((total) + "");
                 }
@@ -201,10 +208,10 @@ public class PaymentSellActivity extends AppCompatActivity implements PaymentSel
         singleCustomerSuplliersModels.clear();
         if (lang.equals("en")) {
 
-            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("Add"));
+            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("Add Customer"));
         } else {
 
-            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("اضافة"));
+            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("اضافة عميل"));
         }
         //Log.e("dlldldl",model.getData().size()+"");
         singleCustomerSuplliersModels.addAll(model.getData());
@@ -237,7 +244,7 @@ public class PaymentSellActivity extends AppCompatActivity implements PaymentSel
         binding.tvtax.setText(taxamount);
         total = total + (Double.parseDouble(taxamount));
         createOrderModel.setTotal_price(total);
-        binding.tvTotal.setText(total + "");
+        binding.tvstay.setText((total-paid) + "");
     }
 
     @Override
@@ -246,5 +253,10 @@ public class PaymentSellActivity extends AppCompatActivity implements PaymentSel
         if (requestCode == 1) {
             presenter.getcustomer(userModel);
         }
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
     }
 }

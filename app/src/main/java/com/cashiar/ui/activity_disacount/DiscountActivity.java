@@ -245,4 +245,9 @@ Common.CreateDialogAlertProfile(DiscountActivity.this,getResources().getString(R
             presenter.getdiscount(userModel);
         }
     }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
+    }
 }

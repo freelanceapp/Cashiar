@@ -64,6 +64,7 @@ public class ActivityAddCashierPresenter {
                             if (response.code() == 500) {
                                 // view.onServer();
                             } else {
+
                                 view.onFailed(response.message());
                                 //  Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }

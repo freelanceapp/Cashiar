@@ -106,10 +106,16 @@ public class CartSellActivity extends AppCompatActivity implements CartSellActiv
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
                     coupon_id = 0;
+                    discount=0;
+                    type="";
+                    calculateTotal();
                 } else {
                     coupon_id = singleDiscountModels.get(i).getId();
+
                     discount = singleDiscountModels.get(i).getValue();
                     type = singleDiscountModels.get(i).getType();
+                    calculateTotal();
+
                 }
             }
 
@@ -135,16 +141,8 @@ public class CartSellActivity extends AppCompatActivity implements CartSellActiv
     public void onopenpay() {
 
         createOrderModel.setCoupon_id(coupon_id);
-        if (coupon_id != 0) {
-            createOrderModel.setDiscount_value(discount);
 
-            if (type.equals("pre")) {
-                total = total - ((total * discount) / 100);
-            } else {
-                total = total - discount;
-            }
 
-        }
         preferences.create_update_cart(this, createOrderModel);
         Intent intent = new Intent(this, PaymentSellActivity.class);
         intent.putExtra("total", total);
@@ -172,6 +170,17 @@ public class CartSellActivity extends AppCompatActivity implements CartSellActiv
         for (ItemCartModel model : itemCartModelList) {
 
             total += model.getAmount() * model.getPrice_value();
+
+        }
+        if (coupon_id != 0) {
+
+            if (type.equals("pre")) {
+                createOrderModel.setDiscount_value(((total * discount) / 100));
+                total = total - ((total * discount) / 100);
+            } else {
+                createOrderModel.setDiscount_value(discount);
+                total = total - discount;
+            }
 
         }
 
@@ -254,10 +263,10 @@ public class CartSellActivity extends AppCompatActivity implements CartSellActiv
     @Override
     public void ondiscountSuccess(AllDiscountsModel model) {
         if (lang.equals("en")) {
-            singleDiscountModels.add(new SingleDiscountModel("choose"));
+            singleDiscountModels.add(new SingleDiscountModel("choose Discount"));
         } else {
 
-            singleDiscountModels.add(new SingleDiscountModel("اختر"));
+            singleDiscountModels.add(new SingleDiscountModel("اختر الخصم"));
         }
         //Log.e("dlldldl",model.getData().size()+"");
         singleDiscountModels.addAll(model.getData());
@@ -306,6 +315,7 @@ public class CartSellActivity extends AppCompatActivity implements CartSellActiv
         super.onRestart();
         if (preferences != null) {
             getdata();
+            presenter.getprofile(userModel);
         }
     }
 }

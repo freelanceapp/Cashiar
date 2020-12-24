@@ -54,6 +54,7 @@ public class CartSellBuyAdapter extends RecyclerView.Adapter<CartSellBuyAdapter.
 
                         if (count <= model2.getStock()) {
                             holder.binding.tvAmount.setText(String.valueOf(count));
+                            holder.binding.tvCost.setText((model2.getPrice_value()*count)+currency);
                             model2.setAmount(count);
                             itemCartModelList.set(holder.getAdapterPosition(), model2);
                         }
@@ -61,6 +62,8 @@ public class CartSellBuyAdapter extends RecyclerView.Adapter<CartSellBuyAdapter.
                     } else if (context instanceof CartBillBuyActivity) {
                         if (count <= model2.getStock()) {
                             holder.binding.tvAmount.setText(String.valueOf(count));
+                            holder.binding.tvCost.setText((model2.getPrice_value()*count)+currency);
+
                             model2.setAmount(count);
                             itemCartModelList.set(holder.getAdapterPosition(), model2);
                         }
@@ -69,10 +72,14 @@ public class CartSellBuyAdapter extends RecyclerView.Adapter<CartSellBuyAdapter.
                         if (model2.getType().equals("in_stock") && count <= model2.getStock()) {
                             holder.binding.tvAmount.setText(String.valueOf(count));
                             model2.setAmount(count);
+                            holder.binding.tvCost.setText((model2.getPrice_value()*count)+currency);
+
                             itemCartModelList.set(holder.getAdapterPosition(), model2);
                         } else {
                             holder.binding.tvAmount.setText(String.valueOf(count));
                             model2.setAmount(count);
+                            holder.binding.tvCost.setText((model2.getPrice_value()*count)+currency);
+
                             itemCartModelList.set(holder.getAdapterPosition(), model2);
                         }
                     }
@@ -104,6 +111,8 @@ public class CartSellBuyAdapter extends RecyclerView.Adapter<CartSellBuyAdapter.
                     double count = model2.getAmount() - model2.getAmount2();
                     if (count > 0) {
                         model2.setAmount(count);
+                        holder.binding.tvCost.setText((model2.getPrice_value()*count)+currency);
+
                         holder.binding.tvAmount.setText(String.valueOf(count));
                         itemCartModelList.set(holder.getAdapterPosition(), model2);
                         if (context instanceof CartSellActivity) {

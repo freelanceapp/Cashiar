@@ -179,6 +179,7 @@ public class ProductsBillSellActivity extends AppCompatActivity implements Produ
     @Override
     protected void onRestart() {
         super.onRestart();
+
         if (preferences != null && preferences.getCartDatabillsell(this) == null) {
             binding.setCartcount(0);
         }

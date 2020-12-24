@@ -221,6 +221,9 @@ public class AddProductActivity extends AppCompatActivity implements AddproductA
                 }
             }
         });
+        if(type.equals("update")){
+            binding.tv.setText(getResources().getString(R.string.update_product));
+        }
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -268,7 +271,7 @@ public class AddProductActivity extends AppCompatActivity implements AddproductA
         addPRoductModel.setPrice(singleProductModel.getProduct_price() + "");
         addPRoductModel.setSellBy(singleProductModel.getProduct_type());
         addPRoductModel.setStock(singleProductModel.getStock_type());
-        Log.e("ellekek",singleProductModel.getStock_amount()+"");
+        Log.e("ellekek",singleProductModel.getSku()+"");
         addPRoductModel.setStokamount(singleProductModel.getStock_amount()+"");
         if (singleProductModel.getSku() != null) {
             addPRoductModel.setSku(singleProductModel.getSku());

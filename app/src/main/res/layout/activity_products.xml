@@ -88,8 +88,8 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_marginStart="@dimen/_2sdp"
-                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_1sdp"
+                    android:layout_marginEnd="@dimen/_1sdp"
                     android:layout_weight=".5"
                     android:background="@drawable/rounded_white">
 
@@ -98,7 +98,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                       android:minWidth="@dimen/_90sdp"
-                        android:spinnerMode="dropdown"
+                        android:spinnerMode="dialog"
 
                         />
 

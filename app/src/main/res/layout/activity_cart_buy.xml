@@ -87,7 +87,9 @@
         android:layout_marginTop="@dimen/_3sdp"
         android:text="@string/add_discount_coupon"
         android:textColor="@color/black"
-        android:textSize="@dimen/_14sdp" />
+        android:textSize="@dimen/_14sdp"
+        android:visibility="gone"
+        />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -95,6 +97,7 @@
         android:layout_gravity="center"
         android:layout_margin="@dimen/_3sdp"
         android:background="@color/white"
+        android:visibility="gone"
         android:padding="@dimen/_8sdp">
 
         <Spinner
@@ -110,7 +113,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/_1sdp"
-        android:background="@color/depic" />
+        android:background="@color/depic"
+        android:visibility="gone"/>
 </LinearLayout>
 <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recView"

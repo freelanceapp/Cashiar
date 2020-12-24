@@ -146,7 +146,38 @@
                             android:layout_gravity="center_vertical"
 
                             android:gravity="center_vertical"
-                            android:text="10000"
+                            android:text="0"
+                            android:textColor="@color/deptext"
+                            android:textSize="@dimen/_15sdp"
+
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="@string/discount"
+                            android:textColor="@color/deptext"
+                            android:textSize="@dimen/_15sdp"
+
+                            />
+
+                        <TextView
+                            android:id="@+id/tvdiscount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+
+                            android:gravity="center_vertical"
+                            android:text="0"
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_15sdp"
 
@@ -166,6 +197,8 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical"
                             android:text="@string/paid"
+                            android:paddingStart="@dimen/_5sdp"
+                            android:paddingEnd="@dimen/_5sdp"
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_15sdp"
 
@@ -176,9 +209,10 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight=".21"
+                            android:layout_weight="1"
                             android:gravity="center"
-                            android:hint="0"
+                            android:hint="@string/paid"
+                            android:background="@drawable/rounded_gray_strok_primary"
                             android:inputType="numberDecimal"
                             android:textColor="@color/black"
 
@@ -186,7 +220,12 @@
 
                             />
                     </LinearLayout>
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_1sdp"
+    android:background="@color/depic"
+    android:layout_marginTop="@dimen/_8sdp"
+    />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -208,7 +247,7 @@
                         <TextView
                             android:id="@+id/tvstay"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center_vertical"
 
                             android:gravity="center_vertical"

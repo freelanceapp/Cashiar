@@ -146,4 +146,9 @@ public class ProfileActivity extends AppCompatActivity implements ProfileActivit
             }
         }
     }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
+    }
 }

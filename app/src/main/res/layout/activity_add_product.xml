@@ -48,6 +48,7 @@
                     app:tint="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -236,6 +237,7 @@
                         android:paddingStart="@dimen/_7sdp"
                         android:paddingEnd="@dimen/_7sdp"
                         android:textColor="@color/black"
+                        android:text="@={model.sku}"
                         android:textColorHint="@color/deptext"
                         android:textSize="@dimen/_14sdp" />
 

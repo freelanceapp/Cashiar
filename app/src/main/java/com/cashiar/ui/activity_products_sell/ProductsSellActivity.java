@@ -267,7 +267,9 @@ public class ProductsSellActivity extends AppCompatActivity implements ProductsS
 
     @Override
     protected void onRestart() {
+
         super.onRestart();
+        presenter.getprofile(userModel);
         if (preferences != null && preferences.getCartData(this) == null) {
             binding.setCartcount(0);
         }
@@ -275,4 +277,5 @@ public class ProductsSellActivity extends AppCompatActivity implements ProductsS
             binding.setCartcount(preferences.getCartData(this).getOrder_details().size());
         }
     }
+
 }

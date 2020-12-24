@@ -220,6 +220,7 @@ public class CartBillBuyActivity extends AppCompatActivity implements CartBillBu
         super.onRestart();
         if (preferences != null) {
             getdata();
+            presenter.getprofile(userModel);
         }
     }
 

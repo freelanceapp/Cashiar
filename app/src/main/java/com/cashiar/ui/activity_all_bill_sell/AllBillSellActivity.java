@@ -111,6 +111,13 @@ public class AllBillSellActivity extends AppCompatActivity implements AllBillSel
         singleBillOfSellModels.clear();
         singleBillOfSellModels.addAll(model.getData());
         billSellAdapter.notifyDataSetChanged();
+        if(model.getData().size()==0){
+            binding.llNoNotification.setVisibility(View.VISIBLE);
+        }
+        else {
+            binding.llNoNotification.setVisibility(View.GONE);
+
+        }
 
     }
 
@@ -145,5 +152,10 @@ public class AllBillSellActivity extends AppCompatActivity implements AllBillSel
         this.currency = body.getCurrency();
         billSellAdapter.currency=currency;
         billSellAdapter.notifyDataSetChanged();
+    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
     }
 }

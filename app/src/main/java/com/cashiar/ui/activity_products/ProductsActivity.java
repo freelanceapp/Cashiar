@@ -333,4 +333,9 @@ public class ProductsActivity extends AppCompatActivity implements ProductsActiv
         intent.putExtra("type", "update");
         startActivity(intent);
     }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
+    }
 }

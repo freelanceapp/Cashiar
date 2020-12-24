@@ -86,19 +86,26 @@ public class PaymentBillBuyActivity extends AppCompatActivity implements Payment
         binding.edtpaid.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.edtpaid.setError(null);
 
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                binding.edtpaid.setError(null);
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
                 try {
-                  paid = Double.parseDouble(editable.toString());
-                    binding.tvstay.setText((total - paid) + "");
+                    paid = Double.parseDouble(editable.toString());
+
+                    if(paid<=total){
+                        binding.tvstay.setText((total - paid) + "");}
+                    else {
+                        binding.edtpaid.setError(getResources().getString(R.string.paid_must_small_or));
+                    }
                 } catch (Exception e) {
                     binding.tvstay.setText((total) + "");
                 }

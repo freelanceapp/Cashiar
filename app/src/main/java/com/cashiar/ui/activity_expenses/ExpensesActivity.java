@@ -304,5 +304,9 @@ public class ExpensesActivity extends AppCompatActivity implements ExpensesActiv
 
         }
     }
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
+    }
 }

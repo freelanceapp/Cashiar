@@ -323,4 +323,5 @@ public class CategoriesActivity extends AppCompatActivity implements CategoriesA
 
         }
     }
+
 }

@@ -150,7 +150,7 @@ public class ProductsBillBuyActivity extends AppCompatActivity implements Produc
                 itemCartModel.setAmount2(1);
 
                 itemCartModel.setImage(singleProductModel.getProduct().getImage());
-                itemCartModel.setPrice_value(singleProductModel.getProduct().getProduct_price());
+                itemCartModel.setPrice_value(singleProductModel.getProduct().getProduct_cost());
                 itemCartModel.setProduct_id(singleProductModel.getProduct().getId());
                 itemCartModel.setTitle(singleProductModel.getProduct().getTitle());
                 itemCartModel.setType(singleProductModel.getProduct().getProduct_type());
@@ -168,7 +168,7 @@ public class ProductsBillBuyActivity extends AppCompatActivity implements Produc
             itemCartModel.setAmount2(1);
 
             itemCartModel.setImage(singleProductModel.getProduct().getImage());
-            itemCartModel.setPrice_value(singleProductModel.getProduct().getProduct_price());
+            itemCartModel.setPrice_value(singleProductModel.getProduct().getProduct_cost());
             itemCartModel.setProduct_id(singleProductModel.getProduct().getId());
             itemCartModel.setTitle(singleProductModel.getProduct().getTitle());
             itemCartModel.setType(singleProductModel.getProduct().getProduct_type());

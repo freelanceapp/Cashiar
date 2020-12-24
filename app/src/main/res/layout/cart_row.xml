@@ -223,7 +223,7 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:gravity="end"
 
-                    android:text='@{model.price_value+currency}'
+                    android:text='@{(model.price_value*model.amount)+currency}'
                     android:textColor="@color/colorPrimary"
                     android:textSize="@dimen/_13sdp"
                     android:textStyle="bold"

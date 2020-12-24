@@ -178,7 +178,8 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
             binding.setLogo(body.getLogo());
         }
     }
-//    private void takeScreenshot() {
+
+    //    private void takeScreenshot() {
 //        Date now = new Date();
 //        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
 //
@@ -221,4 +222,9 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
 //        view.draw(canvas);
 //        return bitmap;
 //    }
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
+    }
 }

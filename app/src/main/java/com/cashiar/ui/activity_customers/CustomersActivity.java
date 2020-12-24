@@ -320,5 +320,9 @@ public class CustomersActivity extends AppCompatActivity implements CustomersAct
     public void onprofileload(UserModel body) {
         this.body = body;
     }
-
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        presenter.getprofile(userModel);
+    }
 }

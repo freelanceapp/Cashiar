@@ -1,14 +1,17 @@
 package com.cashiar.ui.activity_bill_Sell;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
@@ -19,11 +22,16 @@ import android.widget.AdapterView;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.cashiar.BuildConfig;
 import com.cashiar.R;
 import com.cashiar.adapters.ProductsSellAdapter;
 import com.cashiar.adapters.SpinnerCustomerAdapter;
@@ -55,6 +63,8 @@ import java.util.List;
 
 import io.paperdb.Paper;
 
+import static android.os.Build.VERSION_CODES.M;
+
 public class BillSellActivity extends AppCompatActivity implements BillSellActivityView {
     private ActivityBillSellBinding binding;
     private ActivitBillSellPresenter presenter;
@@ -69,7 +79,9 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
     private List<ItemCartModel> itemCartModelList;
     private ProductsSellAdapter productsSellAdapter;
     private String currecny = "";
-
+    private final String write_perm = Manifest.permission.WRITE_EXTERNAL_STORAGE;
+    private final int write_req = 100;
+    private boolean isPermissionGranted = false;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -81,7 +93,31 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_bill_sell);
         getdatafromintent();
+        checkWritePermission();
         initView();
+
+    }
+    private void checkWritePermission() {
+
+        if (ContextCompat.checkSelfPermission(this, write_perm) != PackageManager.PERMISSION_GRANTED) {
+
+
+            isPermissionGranted = false;
+
+            ActivityCompat.requestPermissions(this, new String[]{write_perm}, write_req);
+
+
+        } else {
+            isPermissionGranted = true;
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == write_req && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ) {
+            isPermissionGranted = true;
+        }
     }
 
     private void getdatafromintent() {
@@ -206,7 +242,7 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
 
         try {
             // image naming and path  to include sd card  appending name you choose for file
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpeg";
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now.toString().replaceAll(" ","") + ".jpeg";
 
             // create bitmap screen capture
             ScrollView v1 = (ScrollView) getWindow().getDecorView().findViewById(R.id.scrollView);
@@ -254,13 +290,16 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
     }
 
     private void shareImage(File file) {
-        Uri uri = Uri.fromFile(file);
+        Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider",file);
+
+
+
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("image/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.setPackage("com.whatsapp");
-        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+
         intent.putExtra(Intent.EXTRA_STREAM, uri);
         try {
             startActivity(Intent.createChooser(intent, "Share Screenshot"));
@@ -268,4 +307,5 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
             Toast.makeText(this, "No App Available", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

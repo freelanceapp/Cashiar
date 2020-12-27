@@ -29,7 +29,6 @@ import com.cashiar.mvp.activity_products_bill_buy_mvp.ProductsBillBuyActivityVie
 import com.cashiar.preferences.Preferences;
 import com.cashiar.share.Common;
 import com.cashiar.ui.activity_cart_bill_buy.CartBillBuyActivity;
-import com.cashiar.ui.activity_cart_bill_sell.CartBillSellActivity;
 
 import java.util.ArrayList;
 import java.util.List;

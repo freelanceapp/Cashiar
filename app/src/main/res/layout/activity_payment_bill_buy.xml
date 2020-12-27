@@ -113,7 +113,7 @@
                             android:layout_gravity="center_vertical"
 
                             android:gravity="center_vertical"
-                            android:text="10000"
+                            android:text="0"
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_15sdp"
 
@@ -143,17 +143,24 @@
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_30sdp"
                             android:layout_gravity="center_vertical"
-                            android:layout_weight=".21"
+                            android:layout_weight="1"
                             android:gravity="center"
-                            android:hint="0"
+                            android:hint="@string/paid"
+                            android:background="@drawable/rounded_gray_strok_primary"
                             android:inputType="numberDecimal"
                             android:textColor="@color/black"
 
                             android:textSize="@dimen/_13sdp"
 
                             />
-                    </LinearLayout>
 
+                    </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="@color/depic"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -179,7 +186,7 @@
                             android:layout_gravity="center_vertical"
 
                             android:gravity="center_vertical"
-                            android:text="10000"
+                            android:text="0"
                             android:textColor="@color/deptext"
                             android:textSize="@dimen/_15sdp"
 

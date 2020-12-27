@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -124,6 +125,12 @@ binding.tvdiscount.setText(createOrderModel.getDiscount_value()+"");
                 }
             }
         });
+        binding.btnaddcustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.addCustomers();
+            }
+        });
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,9 +140,13 @@ binding.tvdiscount.setText(createOrderModel.getDiscount_value()+"");
                 date = binding.tvdate.getText().toString().split("/");
 
                 createOrderModel.setDate(date[2] + "-" + date[1] + "-" + date[0]);
-                createOrderModel.setTotal_price(total);
-                createOrderModel.setPaid_price(paid);
-                createOrderModel.setRemaining_price(total - paid);
+                createOrderModel.setTotal_price(Math.round(total));
+                createOrderModel.setPaid_price(Math.round(paid));
+                createOrderModel.setRemaining_price(Math.round(total - paid));
+                createOrderModel.setDiscount_value(Math.round(createOrderModel.getDiscount_value()));
+
+                //  Log.e("llll",createOrderModel.getDiscount_value()+" "+createOrderModel.getRemaining_price()+" "+total);
+
                 presenter.checkData(paymentModel, createOrderModel, userModel);
             }
         });
@@ -143,13 +154,10 @@ binding.tvdiscount.setText(createOrderModel.getDiscount_value()+"");
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            presenter.addCustomers();
+                    client_id =0;
+                    paymentModel.setId("");
 
-                        }
-                    });
+                    binding.setModel(paymentModel);
                 } else {
                     client_id = singleCustomerSuplliersModels.get(i).getId();
                     name=singleCustomerSuplliersModels.get(i).getName();
@@ -208,10 +216,10 @@ binding.tvdiscount.setText(createOrderModel.getDiscount_value()+"");
         singleCustomerSuplliersModels.clear();
         if (lang.equals("en")) {
 
-            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("Add Customer"));
+            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("Choose Customer"));
         } else {
 
-            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("اضافة عميل"));
+            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("اختر عميل"));
         }
         //Log.e("dlldldl",model.getData().size()+"");
         singleCustomerSuplliersModels.addAll(model.getData());

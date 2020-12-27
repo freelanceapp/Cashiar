@@ -25,10 +25,11 @@ public class ProductsBillSellAdapter extends RecyclerView.Adapter<ProductsBillSe
 
     private List<SingleBillOfSellModel.SaleDetials> list;
     private Context context;
-
-    public ProductsBillSellAdapter(Context context, List<SingleBillOfSellModel.SaleDetials> list) {
+public String currency;
+    public ProductsBillSellAdapter(Context context, List<SingleBillOfSellModel.SaleDetials> list,String currency) {
         this.list = list;
         this.context = context;
+        this.currency=currency;
     }
 
     @NonNull
@@ -43,6 +44,7 @@ public class ProductsBillSellAdapter extends RecyclerView.Adapter<ProductsBillSe
         if(context instanceof  ProductsBillSellActivity){
             holder.binding.setCon(1);
         }
+        holder.binding.setCurrency(currency);
         holder.binding.setModel(list.get(position).getProduct());
 
         if (list.get(position).getProduct()!=null&&list.get(position).getProduct().getDisplay_logo_type().equals("color")) {

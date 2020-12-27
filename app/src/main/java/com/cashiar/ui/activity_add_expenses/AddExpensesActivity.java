@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
@@ -24,6 +25,8 @@ import com.cashiar.models.AllAccountsModel;
 import com.cashiar.models.AllCategoryModel;
 import com.cashiar.models.SingleAccountModel;
 import com.cashiar.models.SingleCategoryModel;
+import com.cashiar.models.SingleDiscountModel;
+import com.cashiar.models.SingleExpensesModel;
 import com.cashiar.models.UserModel;
 import com.cashiar.mvp.activity_add_expenses_mvp.ActivityAddExpensesPresenter;
 import com.cashiar.mvp.activity_add_expenses_mvp.AddExpensesActivityView;
@@ -46,6 +49,8 @@ public class AddExpensesActivity extends AppCompatActivity implements AddExpense
     private ProgressDialog dialog;
     private List<SingleAccountModel> singleaccountModelList;
     private SpinnerAccountsAdapter spinneraccountAdapter;
+    private String type;
+    private SingleExpensesModel singleexpenseModel;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -57,9 +62,19 @@ public class AddExpensesActivity extends AppCompatActivity implements AddExpense
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_expenses);
+        getdatafromintent();
         initView();
     }
 
+    private void getdatafromintent() {
+        Intent intent = getIntent();
+        if (intent != null && intent.getStringExtra("type") != null) {
+            Log.e("dlldll", "dldlldl");
+            type = intent.getStringExtra("type");
+            singleexpenseModel = (SingleExpensesModel) intent.getSerializableExtra("data");
+
+        }
+    }
 
     private void initView() {
         preferences = Preferences.getInstance();
@@ -78,13 +93,8 @@ public class AddExpensesActivity extends AppCompatActivity implements AddExpense
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            presenter.addacount();
+                    addExpensesModel.setAccount("");
 
-                        }
-                    });
                 } else {
                     addExpensesModel.setAccount(singleaccountModelList.get(i).getId() + "");
 
@@ -97,12 +107,23 @@ public class AddExpensesActivity extends AppCompatActivity implements AddExpense
 
             }
         });
+        binding.btnaddacount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.addacount();
+            }
+        });
 
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.checkData(addExpensesModel,userModel);
-            }
+                if(type!=null&&type.equals("update")) {
+                    presenter.checkupdateData(addExpensesModel,userModel,singleexpenseModel);
+
+                }
+                else {
+                    presenter.checkData(addExpensesModel,userModel);
+            }}
         });
         binding.tvdate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,8 +131,32 @@ public class AddExpensesActivity extends AppCompatActivity implements AddExpense
                 presenter.showDateDialog(getFragmentManager());}
         });
         presenter.getAccount(userModel);
+        if(type!=null&&type.equals("update")){
+            binding.tv.setText(getResources().getString(R.string.update_expense));
+            binding.btnConfirm.setText(getResources().getString(R.string.update));
+
+            updatediscount();
+        }
+    }
+
+    private void updatediscount() {
+        addExpensesModel.setAccount(singleexpenseModel.getExpense_account().getId()+"");
+        addExpensesModel.setDate(singleexpenseModel.getDate());
+        addExpensesModel.setPrice(singleexpenseModel.getTotal_price()+"");
+        binding.tvdate.setText(singleexpenseModel.getDate());
+        binding.setModel(addExpensesModel);
+
+        for(int i=0;i<singleaccountModelList.size();i++){
+            Log.e("llllsll",singleaccountModelList.get(i).getId()+" "+singleexpenseModel.getExpense_account().getId()+" "+singleexpenseModel.getDate());
+            if(singleaccountModelList.get(i).getId()==singleexpenseModel.getExpense_account().getId()){
+                Log.e("dlffl",i+"");
+                binding.spcat.setSelection(i);
+                break;
+            }
+        }
 
     }
+
 
 
     @Override
@@ -166,15 +211,21 @@ public class AddExpensesActivity extends AppCompatActivity implements AddExpense
     public void onSuccess(AllAccountsModel model) {
         singleaccountModelList.clear();
         if (lang.equals("en")) {
-            singleaccountModelList.add(new SingleAccountModel("Add Account"));
+            singleaccountModelList.add(new SingleAccountModel("Choose Account"));
         } else {
 
-            singleaccountModelList.add(new SingleAccountModel("اضافة حساب"));
+            singleaccountModelList.add(new SingleAccountModel("اختر حساب"));
         }
         //Log.e("dlldldl",model.getData().size()+"");
         singleaccountModelList.addAll(model.getData());
         spinneraccountAdapter = new SpinnerAccountsAdapter(singleaccountModelList, this);
         binding.spcat.setAdapter(spinneraccountAdapter);
+        if(type!=null&&type.equals("update")){
+            binding.tv.setText(getResources().getString(R.string.update_expense));
+            binding.btnConfirm.setText(getResources().getString(R.string.update));
+
+            updatediscount();
+        }
 
     }
     @Override

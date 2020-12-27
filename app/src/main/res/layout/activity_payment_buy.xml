@@ -217,23 +217,45 @@
                             />
                     </LinearLayout>
 
-                    <FrameLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/_3sdp"
-                        android:background="@drawable/rounded_gray_strok_primary"
-                        android:padding="@dimen/_8sdp">
+                        android:orientation="horizontal">
 
-                        <Spinner
-                            android:id="@+id/spcat"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_5sdp"
+                        <FrameLayout
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_gravity="center"
+                            android:layout_margin="@dimen/_3sdp"
+                            android:layout_weight="1"
+                            android:background="@drawable/rounded_gray_strok_primary"
+                            android:padding="@dimen/_8sdp">
 
-                            />
+                            <Spinner
+                                android:id="@+id/spcat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/_5sdp"
 
-                    </FrameLayout>
+                                />
+
+                        </FrameLayout>
+
+                        <Button
+                            android:id="@+id/btnaddcustomer"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginStart="@dimen/_2sdp"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:layout_marginEnd="@dimen/_2sdp"
+                            android:layout_weight=".5"
+                            android:background="@drawable/rounded_primary"
+                            android:gravity="center"
+                            android:text="@string/add_supplier"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10sdp" />
+
+                    </LinearLayout>
 
 
                     <Button

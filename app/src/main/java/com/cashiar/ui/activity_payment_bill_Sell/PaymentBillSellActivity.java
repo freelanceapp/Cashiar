@@ -116,9 +116,9 @@ public class PaymentBillSellActivity extends AppCompatActivity implements Paymen
                 date = binding.tvdate.getText().toString().split("/");
 
                 createOrderModel.setDate(date[2] + "-" + date[1] + "-" + date[0]);
-                createOrderModel.setTotal_price(total);
-                createOrderModel.setPaid_price(paid);
-                createOrderModel.setRemaining_price(total - paid);
+                createOrderModel.setTotal_price(Math.round(total));
+                createOrderModel.setPaid_price(Math.round(paid));
+                createOrderModel.setRemaining_price(Math.round(total - paid));
                 presenter.checkData(paymentModel, createOrderModel, userModel);
             }
         });

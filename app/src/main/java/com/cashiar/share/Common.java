@@ -50,6 +50,7 @@ public class Common {
 
 
     }
+
     public static void CreateDialogAlertProfile(Context context, String msg) {
         final AlertDialog dialog = new AlertDialog.Builder(context)
                 .create();
@@ -58,18 +59,19 @@ public class Common {
 
         binding.tvMsg.setText(msg);
         binding.btnCancel.setOnClickListener(v -> {
-                    Intent intent=new Intent(context, EditprofileActivity.class);
-                    context.startActivity(intent);
-                  //  ((AppCompatActivity) context).finish();
+                    Intent intent = new Intent(context, EditprofileActivity.class);
+                    ((AppCompatActivity) context).startActivityForResult(intent, 2);
+                    //  ((AppCompatActivity) context).finish();
                     dialog.dismiss();
                 }
 
         );
-       // dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
+        // dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
         dialog.setCanceledOnTouchOutside(false);
         dialog.setView(binding.getRoot());
         dialog.show();
     }
+
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static String getImagePath(Context context, Uri uri) {
         int currentApiVersion;
@@ -222,7 +224,7 @@ public class Common {
 
     public static MultipartBody.Part getMultiPartImage(Context context, Uri uri, String partName) {
         File file = getFileFromImagePath(getImagePath(context, uri));
-        String name = System.currentTimeMillis()+file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("."));
+        String name = System.currentTimeMillis() + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("."));
         RequestBody requestBody = getRequestBodyImage(file);
         MultipartBody.Part part = MultipartBody.Part.createFormData(partName, name, requestBody);
         return part;
@@ -231,7 +233,7 @@ public class Common {
 
     public static MultipartBody.Part getMultiPartAudio(Context context, String audio_path, String partName) {
         File file = new File(audio_path);
-        String name = System.currentTimeMillis()+file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("."));
+        String name = System.currentTimeMillis() + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("."));
         RequestBody requestBody = getRequestBodyAudio(file);
         MultipartBody.Part part = MultipartBody.Part.createFormData(partName, name, requestBody);
         return part;
@@ -240,7 +242,7 @@ public class Common {
 
     public static MultipartBody.Part getMultiPartVideo(Context context, Uri uri, String partName) {
         File file = getFileFromImagePath(getImagePath(context, uri));
-        String name = System.currentTimeMillis()+file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("."));
+        String name = System.currentTimeMillis() + file.getAbsolutePath().substring(file.getAbsolutePath().lastIndexOf("."));
         RequestBody requestBody = getRequestBodyVideo(file);
         MultipartBody.Part part = MultipartBody.Part.createFormData(partName, name, requestBody);
         return part;

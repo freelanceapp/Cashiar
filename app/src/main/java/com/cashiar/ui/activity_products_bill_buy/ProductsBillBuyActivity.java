@@ -1,5 +1,6 @@
 package com.cashiar.ui.activity_products_bill_buy;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ import com.cashiar.mvp.activity_products_bill_Sell_mvp.ProductsBillSellActivityV
 import com.cashiar.mvp.activity_products_bill_buy_mvp.ActivityProductsbillBuyPresenter;
 import com.cashiar.mvp.activity_products_bill_buy_mvp.ProductsBillBuyActivityView;
 import com.cashiar.preferences.Preferences;
+import com.cashiar.share.Common;
 import com.cashiar.ui.activity_cart_bill_buy.CartBillBuyActivity;
 import com.cashiar.ui.activity_cart_bill_sell.CartBillSellActivity;
 
@@ -45,6 +47,8 @@ public class ProductsBillBuyActivity extends AppCompatActivity implements Produc
     private CreateBuyOrderModel createOrderModel;
     private List<ItemCartModel> itemCartModels;
     private SingleBillOfSellModel singleBillOfSellModel;
+    private ProgressDialog dialog;
+    private String currency;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -87,7 +91,9 @@ public class ProductsBillBuyActivity extends AppCompatActivity implements Produc
             finish();
         });
         presenter = new ActivityProductsbillBuyPresenter(this, this);
-        productsAdapter = new ProductsBillSellAdapter(this, singleProductModelList);
+        presenter.getprofile(userModel);
+
+        productsAdapter = new ProductsBillSellAdapter(this, singleProductModelList,currency);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
         binding.recView.setAdapter(productsAdapter);
 
@@ -97,14 +103,40 @@ public class ProductsBillBuyActivity extends AppCompatActivity implements Produc
                 presenter.Cart();
             }
         });
-
     }
 
     @Override
     public void onBackPressed() {
         presenter.backPress();
     }
+    @Override
+    public void onLoad() {
+        if (dialog == null) {
+            dialog = Common.createProgressDialog(this, getString(R.string.wait));
+            dialog.setCancelable(false);
+        } else {
+            dialog.dismiss();
+        }
+        dialog.show();
+    }
 
+    @Override
+    public void onFinishload() {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onFailed(String msg) {
+        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void onprofileload(UserModel body) {
+        this.currency = body.getCurrency();
+productsAdapter.currency=currency;
+productsAdapter.notifyDataSetChanged();
+    }
 
     @Override
     public void onFinished() {

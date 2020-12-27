@@ -1,5 +1,6 @@
 package com.cashiar.ui.Activity_products_bill_sell;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.cashiar.models.UserModel;
 import com.cashiar.mvp.activity_products_bill_Sell_mvp.ActivityProductsbillSellPresenter;
 import com.cashiar.mvp.activity_products_bill_Sell_mvp.ProductsBillSellActivityView;
 import com.cashiar.preferences.Preferences;
+import com.cashiar.share.Common;
 import com.cashiar.ui.activity_cart_bill_sell.CartBillSellActivity;
 
 import java.util.ArrayList;
@@ -39,6 +41,8 @@ public class ProductsBillSellActivity extends AppCompatActivity implements Produ
     private CreateOrderModel createOrderModel;
     private List<ItemCartModel> itemCartModels;
     private SingleBillOfSellModel singleBillOfSellModel;
+    private ProgressDialog dialog;
+    private String currency;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -81,7 +85,8 @@ public class ProductsBillSellActivity extends AppCompatActivity implements Produ
             finish();
         });
         presenter = new ActivityProductsbillSellPresenter(this, this);
-        productsAdapter = new ProductsBillSellAdapter(this, singleProductModelList);
+        presenter.getprofile(userModel);
+        productsAdapter = new ProductsBillSellAdapter(this, singleProductModelList,currency);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
         binding.recView.setAdapter(productsAdapter);
 
@@ -187,4 +192,33 @@ public class ProductsBillSellActivity extends AppCompatActivity implements Produ
             binding.setCartcount(preferences.getCartDatabillsell(this).getOrder_details().size());
         }
     }
+    @Override
+    public void onLoad() {
+        if (dialog == null) {
+            dialog = Common.createProgressDialog(this, getString(R.string.wait));
+            dialog.setCancelable(false);
+        } else {
+            dialog.dismiss();
+        }
+        dialog.show();
+    }
+
+    @Override
+    public void onFinishload() {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onFailed(String msg) {
+        Toast.makeText(this,msg,Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    public void onprofileload(UserModel body) {
+        this.currency = body.getCurrency();
+        productsAdapter.currency=currency;
+        productsAdapter.notifyDataSetChanged();
+    }
+
 }

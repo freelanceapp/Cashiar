@@ -7,6 +7,8 @@ public class SingleCustomerSuplliersModel implements Serializable {
     private String name;
     private String phone_code;
     private String phone;
+    private String email;
+    private String address;
 
     public SingleCustomerSuplliersModel(String name) {
         this.name = name;
@@ -26,5 +28,13 @@ public class SingleCustomerSuplliersModel implements Serializable {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }

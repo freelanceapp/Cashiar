@@ -24,4 +24,5 @@ public interface CustomersActivityView {
 
     void onprofileload(UserModel body);
 
+    void onSuccessDelete();
 }

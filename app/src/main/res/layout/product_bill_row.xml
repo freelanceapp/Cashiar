@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:text="@{model.title}"
             android:textColor="@color/deptext"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_13sdp" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:text='@{model.amount+""}'
             android:textColor="@color/deptext"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_13sdp" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
             android:layout_weight="1"
             android:text='@{(model.amount*model.price_value)+currency}'
             android:textColor="@color/deptext"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_13sdp" />
     </LinearLayout>
 
 

@@ -84,7 +84,10 @@ public class AddDepartmnetActivity extends AppCompatActivity implements AddDepar
         addDepartmentModel = new AddDepartmentModel();
 
         binding.setModel(addDepartmentModel);
-
+        if(type!=null&&type.equals("update")){
+            binding.tv.setText(getResources().getString(R.string.udate_department));
+            binding.btnConfirm.setText(getResources().getString(R.string.update));
+        }
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

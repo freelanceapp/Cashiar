@@ -55,7 +55,7 @@ public class ActivityAddCashierPresenter {
                             view.onSuccess();
                         } else {
                             try {
-                                Log.e("mmmmmmmmmm", response.errorBody().string());
+                                Log.e("mmmmmmmmmm", response.errorBody().string()+response.message());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -65,7 +65,7 @@ public class ActivityAddCashierPresenter {
                                 // view.onServer();
                             } else {
 
-                                view.onFailed(response.message());
+                                view.onFailed(context.getResources().getString(R.string.phone_aready_taken));
                                 //  Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }
                         }

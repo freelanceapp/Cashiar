@@ -14,15 +14,18 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cashiar.R;
 import com.cashiar.adapters.CustomerAdapter;
+import com.cashiar.adapters.DelteCustomerSwipe;
 import com.cashiar.adapters.SliderAdapter;
 import com.cashiar.databinding.ActivitySuppliersBinding;
 import com.cashiar.language.Language;
 import com.cashiar.models.AllCustomersModel;
 import com.cashiar.models.SingleCustomerSuplliersModel;
+import com.cashiar.models.SingleDiscountModel;
 import com.cashiar.models.Slider_Model;
 import com.cashiar.models.UserModel;
 import com.cashiar.mvp.activity_suppliers_mvp.ActivitySuppliersPresenter;
@@ -31,6 +34,7 @@ import com.cashiar.preferences.Preferences;
 import com.cashiar.share.Common;
 import com.cashiar.ui.activity_add_Customer.AddCustomerActivity;
 import com.cashiar.ui.activity_add_subliers.AddSubliersActivity;
+import com.cashiar.ui.activity_customers.CustomersActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +43,7 @@ import java.util.TimerTask;
 
 import io.paperdb.Paper;
 
-public class SuppliersActivity extends AppCompatActivity implements SuppliersActivityView {
+public class SuppliersActivity extends AppCompatActivity implements SuppliersActivityView,DelteCustomerSwipe.SwipeListener {
     private ActivitySuppliersBinding binding;
     private ActivitySuppliersPresenter presenter;
     private String lang;
@@ -56,6 +60,7 @@ public class SuppliersActivity extends AppCompatActivity implements SuppliersAct
     private TimerTask timerTask;
     private UserModel body;
     private ProgressDialog dialog2;
+    private int pos;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -86,6 +91,9 @@ public class SuppliersActivity extends AppCompatActivity implements SuppliersAct
         sliderAdapter = new SliderAdapter(sliDataList, this);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
         binding.recView.setAdapter(customerAdapter);
+        ItemTouchHelper.SimpleCallback simpleCallback = new DelteCustomerSwipe(this, 0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT, this);
+        ItemTouchHelper helper = new ItemTouchHelper(simpleCallback);
+        helper.attachToRecyclerView(binding.recView);
         binding.llBack.setOnClickListener(view -> {
             finish();
         });
@@ -101,90 +109,98 @@ public class SuppliersActivity extends AppCompatActivity implements SuppliersAct
             }
             return false;
         });
-        binding.llMap.setOnTouchListener(new View.OnTouchListener() {
+        binding.llMap.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                long duration = motionEvent.getEventTime() - motionEvent.getDownTime();
+            public void onClick(View v) {
+                presenter.suppliers();
 
-
-                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-
-                int action = motionEvent.getAction();
-
-                if (action == MotionEvent.ACTION_DOWN) {
-
-                    downRawX = motionEvent.getRawX();
-                    downRawY = motionEvent.getRawY();
-                    dX = view.getX() - downRawX;
-                    dY = view.getY() - downRawY;
-
-                    return true; // Consumed
-
-                } else if (action == MotionEvent.ACTION_MOVE) {
-
-                    int viewWidth = view.getWidth();
-                    int viewHeight = view.getHeight();
-
-                    View viewParent = (View) view.getParent();
-                    int parentWidth = viewParent.getWidth();
-                    int parentHeight = viewParent.getHeight();
-
-                    float newX = motionEvent.getRawX() + dX;
-                    newX = Math.max(layoutParams.leftMargin, newX);
-                    newX = Math.min(parentWidth - viewWidth - layoutParams.rightMargin, newX); // Don't allow the FAB past the right hand side of the parent
-
-                    float newY = motionEvent.getRawY() + dY;
-                    newY = Math.max(layoutParams.topMargin, newY); // Don't allow the FAB past the top of the parent
-                    newY = Math.min(parentHeight - viewHeight - layoutParams.bottomMargin, newY); // Don't allow the FAB past the bottom of the parent
-
-                    view.animate()
-                            .x(newX)
-                            .y(newY)
-                            .setDuration(0)
-                            .start();
-
-                    return true; // Consumed
-
-                } else if (action == MotionEvent.ACTION_UP) {
-
-                    float upRawX = motionEvent.getRawX();
-                    float upRawY = motionEvent.getRawY();
-
-                    float upDX = upRawX - downRawX;
-                    float upDY = upRawY - downRawY;
-
-                    // A drag
-
-                    if (duration < 100) {
-                     //   if(body.getCurrency()!=null&&body.getTax_amount()!=null){
-
-                            presenter.suppliers();
-
-                    //}
-                       //
-                    }
-                    return false; // Consumed
-
-
-                } else {
-                    //return super.onTouchEvent(motionEvent);
-
-                    if (duration < 100) {
-                       // if(body.getCurrency()!=null&&body.getTax_amount()!=null){
-
-                            presenter.suppliers();
-//                    }
-//                        else {
-//
-//                        }
-                    }
-                }
-
-                return false;
             }
-
-
         });
+//        binding.llMap.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                long duration = motionEvent.getEventTime() - motionEvent.getDownTime();
+//
+//
+//                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+//
+//                int action = motionEvent.getAction();
+//
+//                if (action == MotionEvent.ACTION_DOWN) {
+//
+//                    downRawX = motionEvent.getRawX();
+//                    downRawY = motionEvent.getRawY();
+//                    dX = view.getX() - downRawX;
+//                    dY = view.getY() - downRawY;
+//                    presenter.suppliers();
+//
+//                    return true; // Consumed
+//
+//                } else if (action == MotionEvent.ACTION_MOVE) {
+//
+//                    int viewWidth = view.getWidth();
+//                    int viewHeight = view.getHeight();
+//
+//                    View viewParent = (View) view.getParent();
+//                    int parentWidth = viewParent.getWidth();
+//                    int parentHeight = viewParent.getHeight();
+//
+//                    float newX = motionEvent.getRawX() + dX;
+//                    newX = Math.max(layoutParams.leftMargin, newX);
+//                    newX = Math.min(parentWidth - viewWidth - layoutParams.rightMargin, newX); // Don't allow the FAB past the right hand side of the parent
+//
+//                    float newY = motionEvent.getRawY() + dY;
+//                    newY = Math.max(layoutParams.topMargin, newY); // Don't allow the FAB past the top of the parent
+//                    newY = Math.min(parentHeight - viewHeight - layoutParams.bottomMargin, newY); // Don't allow the FAB past the bottom of the parent
+//
+//                    view.animate()
+//                            .x(newX)
+//                            .y(newY)
+//                            .setDuration(0)
+//                            .start();
+//
+//                    return true; // Consumed
+//
+//                } else if (action == MotionEvent.ACTION_UP) {
+//
+//                    float upRawX = motionEvent.getRawX();
+//                    float upRawY = motionEvent.getRawY();
+//
+//                    float upDX = upRawX - downRawX;
+//                    float upDY = upRawY - downRawY;
+//
+//                    // A drag
+//
+//                    if (duration < 100) {
+//                     //   if(body.getCurrency()!=null&&body.getTax_amount()!=null){
+//
+//                            presenter.suppliers();
+//
+//                    //}
+//                       //
+//                    }
+//                    return false; // Consumed
+//
+//
+//                } else {
+//                    //return super.onTouchEvent(motionEvent);
+//
+//                    if (duration < 100) {
+//                       // if(body.getCurrency()!=null&&body.getTax_amount()!=null){
+//
+//                            presenter.suppliers();
+////                    }
+////                        else {
+////
+////                        }
+//                    }
+//                }
+//
+//                return false;
+//            }
+//
+//
+//        });
         presenter.getCustomers(userModel, query);
         presenter.getSlider();
     }
@@ -286,6 +302,12 @@ this.body=body;
     }
 
     @Override
+    public void onSuccessDelete() {
+        allCustomersModels.remove(pos);
+        customerAdapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void onProgressShow() {
         binding.progBar.setVisibility(View.VISIBLE);
     }
@@ -325,5 +347,18 @@ this.body=body;
     protected void onRestart() {
         super.onRestart();
         presenter.getprofile(userModel);
+        presenter.getCustomers(userModel,query);
+    }
+    @Override
+    public void onSwipe(int pos, int dir) {
+        this.pos=pos;
+        presenter.deletesupplier(allCustomersModels.get(pos).getId(), userModel);
+
+    }
+    public void update(SingleCustomerSuplliersModel singleCustomerSuplliersModel) {
+        Intent intent = new Intent(SuppliersActivity.this, AddSubliersActivity.class);
+        intent.putExtra("data", singleCustomerSuplliersModel);
+        intent.putExtra("type", "update");
+        startActivity(intent);
     }
 }

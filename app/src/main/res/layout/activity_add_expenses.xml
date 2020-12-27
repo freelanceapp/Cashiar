@@ -49,6 +49,7 @@
                     app:tint="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -99,8 +100,9 @@
 
 
                         <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_weight="1"
                             android:layout_gravity="center">
 
                             <Spinner
@@ -111,6 +113,18 @@
                                 />
 
                         </FrameLayout>
+                        <Button
+                            android:id="@+id/btnaddacount"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginStart="@dimen/_2sdp"
+                            android:layout_marginEnd="@dimen/_2sdp"
+                            android:background="@drawable/rounded_primary"
+                            android:gravity="center"
+                            android:layout_weight=".5"
+                            android:text="@string/add_account"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10sdp" />
                     </LinearLayout>
 
 

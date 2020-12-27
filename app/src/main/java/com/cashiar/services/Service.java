@@ -399,23 +399,24 @@ public interface Service {
 
     @GET("api/allSliders")
     Call<Slider_Model> get_slider();
+
     @GET("api/marketData")
     Call<UserModel> getprofile(
             @Header("Authorization") String Authorization
-                               );
+    );
+
     @FormUrlEncoded
     @POST("api/profile/update")
     Call<UserModel> Editprofile(
             @Header("Authorization") String Authorization,
-            @Field("name") String  name,
+            @Field("name") String name,
             @Field("phone_code") String phone_code,
             @Field("phone") String product_cost,
-            @Field("address") String  address,
-            @Field("longitude") String   longitude,
-            @Field("latitude") String  latitude,
+            @Field("address") String address,
+            @Field("longitude") String longitude,
+            @Field("latitude") String latitude,
             @Field("currency") String currency,
-            @Field("tax_amount") String  tax_amount
-
+            @Field("tax_amount") String tax_amount
 
 
     );
@@ -425,14 +426,14 @@ public interface Service {
     @POST("api/profile/update")
     Call<UserModel> Editprofilewithimage(
             @Header("Authorization") String Authorization,
-            @Part("name") RequestBody  name,
+            @Part("name") RequestBody name,
             @Field("phone_code") RequestBody phone_code,
             @Field("phone") RequestBody product_cost,
-            @Field("address") RequestBody  address,
-            @Field("longitude") RequestBody   longitude,
-            @Field("latitude") RequestBody  latitude,
+            @Field("address") RequestBody address,
+            @Field("longitude") RequestBody longitude,
+            @Field("latitude") RequestBody latitude,
             @Field("currency") RequestBody currency,
-            @Field("tax_amount") RequestBody  tax_amount,
+            @Field("tax_amount") RequestBody tax_amount,
             @Part MultipartBody.Part image
 
 
@@ -442,18 +443,99 @@ public interface Service {
     @POST("api/profile/update")
     Call<ResponseBody> Editprofilecahier(
             @Header("Authorization") String Authorization,
-            @Field("name") String  name,
+            @Field("name") String name,
             @Field("phone_code") String phone_code,
             @Field("phone") String product_cost,
-            @Field("address") String  address,
-            @Field("longitude") String   longitude,
-            @Field("latitude") String  latitude
-
+            @Field("address") String address,
+            @Field("longitude") String longitude,
+            @Field("latitude") String latitude
 
 
     );
 
+    @FormUrlEncoded
+    @POST("api/deleteCoupon")
+    Call<ResponseBody> deltediscount(
+            @Header("Authorization") String Authorization,
+            @Field("coupon_id") String coupon_id
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/editCoupon")
+    Call<ResponseBody> updateiscount(
+            @Header("Authorization") String Authorization,
+            @Field("title") String title,
+            @Field("type") String type,
+            @Field("value") String value,
+            @Field("coupon_id") String coupon_id
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/deleteExpense")
+    Call<ResponseBody> delteexpense(
+            @Header("Authorization") String Authorization,
+            @Field("id") String id
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/editExpense")
+    Call<ResponseBody> editExpense(
+            @Header("Authorization") String Authorization,
+            @Field("account_id") String account_id,
+            @Field("total_price") String total_price,
+            @Field("date") String date,
+            @Field("id") String id
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/deleteClient")
+    Call<ResponseBody> deltecustomer(
+            @Header("Authorization") String Authorization,
+            @Field("client_id") String client_id
+
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/editClient")
+    Call<ResponseBody> updatecustomer(
+            @Header("Authorization") String Authorization,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("phone_code") String phone_code,
+            @Field("phone") String phone,
+            @Field("address") String address,
+            @Field("client_id") String client_id
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/deleteSupplier")
+    Call<ResponseBody> deltesupplier(
+            @Header("Authorization") String Authorization,
+            @Field("supplier_id") String supplier_id
+
+
+    );
+    @FormUrlEncoded
+    @POST("api/editSupplier")
+    Call<ResponseBody> updatesuppliers(
+            @Header("Authorization") String Authorization,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("phone_code") String phone_code,
+            @Field("phone") String phone,
+            @Field("address") String address,
+            @Field("supplier_id") String supplier_id
 
 
 
+    );
 }

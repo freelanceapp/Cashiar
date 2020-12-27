@@ -1,16 +1,19 @@
 package com.cashiar.ui.activity_bill_Sell;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ScrollView;
@@ -65,7 +68,8 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
     private Preferences preferences;
     private List<ItemCartModel> itemCartModelList;
     private ProductsSellAdapter productsSellAdapter;
-private String currecny="";
+    private String currecny = "";
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -103,7 +107,7 @@ private String currecny="";
         binding.setBillmodel(billModel);
 
         binding.setTotal((createOrderModel.getTotal_price() - Double.parseDouble(taxamount) + createOrderModel.getDiscount_value()) + "");
-        productsSellAdapter = new ProductsSellAdapter(this, itemCartModelList,currecny);
+        productsSellAdapter = new ProductsSellAdapter(this, itemCartModelList, currecny);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
         binding.recView.setAdapter(productsSellAdapter);
         itemCartModelList.addAll(createOrderModel.getOrder_details());
@@ -120,6 +124,12 @@ private String currecny="";
             @Override
             public void onClick(View view) {
 
+            }
+        });
+        binding.btnsend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takeScreenshot();
             }
         });
 
@@ -178,7 +188,7 @@ private String currecny="";
     @Override
     public void onprofileload(UserModel body) {
         this.taxamount = body.getTax_amount();
-        currecny=body.getCurrency();
+        currecny = body.getCurrency();
         binding.setCurrency(currecny);
         binding.setAddress(body.getAddress());
         binding.setTax(taxamount);
@@ -187,54 +197,75 @@ private String currecny="";
             binding.setLogo(body.getLogo());
         }
 
+
     }
 
-    //    private void takeScreenshot() {
-//        Date now = new Date();
-//        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
-//
-//        try {
-//            // image naming and path  to include sd card  appending name you choose for file
-//            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpeg";
-//
-//            // create bitmap screen capture
-//            ScrollView v1 = (ScrollView) getWindow().getDecorView().findViewById(R.id.scrollView);
-//            v1.setDrawingCacheEnabled(true);
-//            Bitmap bitmap = getBitmapFromView(v1, v1.getChildAt(0).getHeight(), v1.getChildAt(0).getWidth());
-//            v1.setDrawingCacheEnabled(false);
-//
-//            File imageFile = new File(mPath);
-//
-//            FileOutputStream outputStream = new FileOutputStream(imageFile);
-//            int quality = 100;
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-//            outputStream.flush();
-//            outputStream.close();
-//
-//            //setting screenshot in imageview
-//            String filePath = imageFile.getPath();
-//
-//            //   Bitmap ssbitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
-//
-//        } catch (Throwable e) {
-//            // Several error may come out with file handling or DOM
-//            e.printStackTrace();
-//        }
-//    }
-//    private Bitmap getBitmapFromView(View view, int height, int width) {
-//        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-//        Canvas canvas = new Canvas(bitmap);
-//        Drawable bgDrawable = view.getBackground();
-//        if (bgDrawable != null)
-//            bgDrawable.draw(canvas);
-//        else
-//            canvas.drawColor(Color.WHITE);
-//        view.draw(canvas);
-//        return bitmap;
-//    }
+    private void takeScreenshot() {
+        Date now = new Date();
+        android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
+
+        try {
+            // image naming and path  to include sd card  appending name you choose for file
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpeg";
+
+            // create bitmap screen capture
+            ScrollView v1 = (ScrollView) getWindow().getDecorView().findViewById(R.id.scrollView);
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = getBitmapFromView(v1, v1.getChildAt(0).getHeight(), v1.getChildAt(0).getWidth());
+            v1.setDrawingCacheEnabled(false);
+
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+            //setting screenshot in imageview
+            String filePath = imageFile.getPath();
+            Log.e("ddlldld",filePath);
+
+            shareImage(new File(filePath));
+            //   Bitmap ssbitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+
+        } catch (Exception e) {
+            // Several error may come out with file handling or DOM
+            Log.e("ddlldld",e.toString());
+        }
+    }
+
+    private Bitmap getBitmapFromView(View view, int height, int width) {
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null)
+            bgDrawable.draw(canvas);
+        else
+            canvas.drawColor(Color.WHITE);
+        view.draw(canvas);
+        return bitmap;
+    }
+
     @Override
     protected void onRestart() {
         super.onRestart();
         presenter.getprofile(userModel);
+    }
+
+    private void shareImage(File file) {
+        Uri uri = Uri.fromFile(file);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.setPackage("com.whatsapp");
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        try {
+            startActivity(Intent.createChooser(intent, "Share Screenshot"));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No App Available", Toast.LENGTH_SHORT).show();
+        }
     }
 }

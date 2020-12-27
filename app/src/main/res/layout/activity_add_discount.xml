@@ -49,6 +49,7 @@
                     app:tint="@color/white" />
 
                 <TextView
+                    android:id="@+id/tv"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -173,7 +174,7 @@
                                     android:layout_weight="1"
                                     android:background="@drawable/rounded_gray2"
                                     android:gravity="center"
-                                    android:text="@string/sar"
+                                    android:text="@string/value"
                                     android:textColor="@color/black"
                                     android:textSize="@dimen/_10sdp" />
                             </LinearLayout>

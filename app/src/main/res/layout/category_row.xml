@@ -132,26 +132,31 @@
                 android:layout_height="@dimen/_45sdp"
                 android:padding="@dimen/_5sdp" />
         </FrameLayout>
-
+        <FrameLayout
+            android:id="@+id/fr2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/view1"
+            app:layout_constraintEnd_toStartOf="@+id/tv2"
+            app:layout_constraintStart_toEndOf="@+id/fr"
+            app:layout_constraintTop_toTopOf="parent"
+            >
         <TextView
             android:id="@+id/tv1"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:text="@{model.title}"
             android:textColor="@color/deptext"
             android:textSize="@dimen/_14sdp"
-            app:layout_constraintBottom_toTopOf="@+id/view1"
-            app:layout_constraintEnd_toStartOf="@+id/tv2"
-            app:layout_constraintStart_toEndOf="@+id/fr"
-            app:layout_constraintTop_toTopOf="parent"
+
 
             />
-
+        </FrameLayout>
         <TextView
             android:id="@+id/tv2"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginEnd="@dimen/_8sdp"
@@ -161,7 +166,7 @@
             android:textSize="@dimen/_14sdp"
             app:layout_constraintBottom_toTopOf="@+id/view1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tv1"
+            app:layout_constraintStart_toEndOf="@+id/fr2"
             app:layout_constraintTop_toTopOf="parent"
 
             />

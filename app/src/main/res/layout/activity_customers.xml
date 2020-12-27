@@ -198,8 +198,10 @@
                             android:layout_height="wrap_content"
                             android:layout_margin="15dp"
                             android:gravity="center"
+                            android:layout_gravity="bottom"
+                            android:background="@color/transparent"
                             android:orientation="horizontal"
-                          android:layout_gravity="bottom">
+                         >
 
                             <com.google.android.material.floatingactionbutton.FloatingActionButton
                                 android:id="@+id/fabSave"
@@ -208,8 +210,10 @@
                                 android:padding="@dimen/_3sdp"
                                 android:src="@drawable/ic_add"
                                 android:tint="@color/white"
-                                app:fabCustomSize="@dimen/_40sdp"
                                 app:backgroundTint="@color/colorPrimary"
+                                app:fabCustomSize="@dimen/_40sdp"
+                                app:elevation="0dp"
+                                android:background="@color/transparent"
                                 app:fabSize="mini" />
 
                         </LinearLayout>

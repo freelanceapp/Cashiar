@@ -18,4 +18,6 @@ public interface DiscountActivityView {
 
 
     void onprofileload(UserModel body);
+
+    void onSuccessDelete();
 }

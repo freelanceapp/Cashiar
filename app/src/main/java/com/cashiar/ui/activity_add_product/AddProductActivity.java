@@ -221,8 +221,9 @@ public class AddProductActivity extends AppCompatActivity implements AddproductA
                 }
             }
         });
-        if(type.equals("update")){
+        if(type!=null&&type.equals("update")){
             binding.tv.setText(getResources().getString(R.string.update_product));
+            binding.btnConfirm.setText(getResources().getString(R.string.update));
         }
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override

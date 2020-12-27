@@ -130,8 +130,15 @@
     <string name="amount_required">ِAmount Required</string>
     <string name="amount_paid">Amount Paid</string>
     <string name="thanks_for_your_use">Thanks for your use</string>
-    <string name="add_expenses">Add Expenses</string>
+    <string name="add_expenses">Add Expense</string>
     <string name="add_supplier">Add Supplier</string>
     <string name="update_product">Update Product</string>
     <string name="paid_must_small_or">Paid Must Small Or Equal Total</string>
+    <string name="update_discount">Update Discount</string>
+    <string name="phone_aready_taken">Phone Already Taken</string>
+    <string name="udate_department">Update Department</string>
+    <string name="send_by_whats_app">share WhatsApp</string>
+    <string name="update_expense">Update Expense</string>
+    <string name="update_customer">Update Customer</string>
+    <string name="update_supplier">Update Supplier</string>
 </resources>

@@ -24,4 +24,5 @@ public interface SuppliersActivityView {
 
     void onprofileload(UserModel body);
 
+    void onSuccessDelete();
 }

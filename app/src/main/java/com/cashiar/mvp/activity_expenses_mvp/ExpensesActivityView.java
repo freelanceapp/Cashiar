@@ -25,4 +25,5 @@ public interface ExpensesActivityView {
 
     void onprofileload(UserModel body);
 
+    void onSuccessDelete();
 }

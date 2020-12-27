@@ -168,10 +168,12 @@
                             android:id="@+id/llMap"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
                             android:layout_margin="15dp"
                             android:gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_gravity="bottom"
+                            android:background="@color/transparent"
+                            android:orientation="horizontal"
+                            >
 
                             <com.google.android.material.floatingactionbutton.FloatingActionButton
                                 android:id="@+id/fabSave"
@@ -182,6 +184,8 @@
                                 android:tint="@color/white"
                                 app:backgroundTint="@color/colorPrimary"
                                 app:fabCustomSize="@dimen/_40sdp"
+                                app:elevation="0dp"
+                                android:background="@color/transparent"
                                 app:fabSize="mini" />
 
                         </LinearLayout>

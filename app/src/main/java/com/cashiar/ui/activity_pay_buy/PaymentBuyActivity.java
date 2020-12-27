@@ -125,9 +125,9 @@ public class PaymentBuyActivity extends AppCompatActivity implements PaymentBuyA
                 createOrderModel.setSupplier_id(client_id);
                 String date[] = binding.tvdate.getText().toString().split("/");
                 createOrderModel.setDate(date[2] + "-" + date[1] + "-" + date[0]);
-                createOrderModel.setTotal_price(total);
-                createOrderModel.setPaid_price(paid);
-                createOrderModel.setRemaining_price(total - paid);
+                createOrderModel.setTotal_price(Math.round(total));
+                createOrderModel.setPaid_price(Math.round(paid));
+                createOrderModel.setRemaining_price(Math.round(total - paid));
                 presenter.checkData(paymentModel, createOrderModel, userModel);
             }
         });
@@ -135,13 +135,9 @@ public class PaymentBuyActivity extends AppCompatActivity implements PaymentBuyA
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (i == 0) {
-                    view.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            presenter.addCustomers();
-
-                        }
-                    });
+                client_id=0;
+                paymentModel.setId("");
+                binding.setModel(paymentModel);
                 } else {
                     client_id = singleCustomerSuplliersModels.get(i).getId();
                     paymentModel.setId(client_id + "");
@@ -152,6 +148,12 @@ public class PaymentBuyActivity extends AppCompatActivity implements PaymentBuyA
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
+            }
+        });
+        binding.btnaddcustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.addCustomers();
             }
         });
     }
@@ -193,10 +195,10 @@ public class PaymentBuyActivity extends AppCompatActivity implements PaymentBuyA
         singleCustomerSuplliersModels.clear();
         if (lang.equals("en")) {
 
-            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("Add supllier"));
+            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("Choose supllier"));
         } else {
 
-            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("اضافة مورد"));
+            singleCustomerSuplliersModels.add(new SingleCustomerSuplliersModel("اختر مورد"));
         }
         //Log.e("dlldldl",model.getData().size()+"");
         singleCustomerSuplliersModels.addAll(model.getData());

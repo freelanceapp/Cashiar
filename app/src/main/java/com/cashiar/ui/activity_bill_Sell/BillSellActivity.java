@@ -1,12 +1,17 @@
 package com.cashiar.ui.activity_bill_Sell;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -14,9 +19,11 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ScrollView;
@@ -29,14 +36,18 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.databinding.DataBindingUtil;
+import androidx.print.PrintHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.cashiar.BuildConfig;
 import com.cashiar.R;
+import com.cashiar.adapters.BluthoosAdapter;
 import com.cashiar.adapters.ProductsSellAdapter;
 import com.cashiar.adapters.SpinnerCustomerAdapter;
 import com.cashiar.databinding.ActivityBillSellBinding;
 import com.cashiar.databinding.ActivityPaymentSellBinding;
+import com.cashiar.databinding.DialogBluthoosBinding;
+import com.cashiar.databinding.DialogInpiutBinding;
 import com.cashiar.language.Language;
 import com.cashiar.models.AllCustomersModel;
 import com.cashiar.models.BillModel;
@@ -53,13 +64,22 @@ import com.cashiar.preferences.Preferences;
 import com.cashiar.share.Common;
 import com.cashiar.tags.Tags;
 import com.cashiar.ui.activity_add_Customer.AddCustomerActivity;
+import com.cashiar.ui.activity_cart_buy.CartBuyActivity;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 import io.paperdb.Paper;
 
@@ -81,7 +101,23 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
     private String currecny = "";
     private final String write_perm = Manifest.permission.WRITE_EXTERNAL_STORAGE;
     private final int write_req = 100;
+    private final String bluthoos_perm = Manifest.permission.BLUETOOTH;
+    private final String bluthoosadmin_perm = Manifest.permission.BLUETOOTH_ADMIN;
+
+    private final int bluthoos_req = 200;
+
     private boolean isPermissionGranted = false;
+    private BluetoothAdapter mBluetoothAdapter;
+    private BluetoothDevice mmDevice;
+    private BluetoothSocket mmSocket;
+    private OutputStream mmOutputStream;
+    private InputStream inputStream;
+    private boolean stopWorker;
+    private byte[] readBuffer;
+    private int readBufferPosition;
+    private Thread workerThread;
+    private AlertDialog dialog2;
+
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -94,9 +130,26 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
         binding = DataBindingUtil.setContentView(this, R.layout.activity_bill_sell);
         getdatafromintent();
         checkWritePermission();
+        checkBluthoosPermission();
         initView();
 
     }
+
+    private void checkBluthoosPermission() {
+
+        if (ContextCompat.checkSelfPermission(this, bluthoos_perm) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, bluthoosadmin_perm) != PackageManager.PERMISSION_GRANTED) {
+
+
+            isPermissionGranted = false;
+
+            ActivityCompat.requestPermissions(this, new String[]{bluthoos_perm, bluthoosadmin_perm}, bluthoos_req);
+
+
+        } else {
+            isPermissionGranted = true;
+        }
+    }
+
     private void checkWritePermission() {
 
         if (ContextCompat.checkSelfPermission(this, write_perm) != PackageManager.PERMISSION_GRANTED) {
@@ -111,11 +164,12 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
             isPermissionGranted = true;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == write_req && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ) {
+        if (requestCode == write_req && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             isPermissionGranted = true;
         }
     }
@@ -159,13 +213,16 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
         binding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //   takeScreenshot(2);
+                findBT();
+                takeScreenshot(2);
 
             }
         });
         binding.btnsend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takeScreenshot();
+                takeScreenshot(1);
             }
         });
 
@@ -236,13 +293,13 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
 
     }
 
-    private void takeScreenshot() {
+    private void takeScreenshot(int mode) {
         Date now = new Date();
         android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", now);
 
         try {
             // image naming and path  to include sd card  appending name you choose for file
-            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now.toString().replaceAll(" ","") + ".jpeg";
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now.toString().replaceAll(" ", "") + ".jpeg";
 
             // create bitmap screen capture
             ScrollView v1 = (ScrollView) getWindow().getDecorView().findViewById(R.id.scrollView);
@@ -260,14 +317,18 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
 
             //setting screenshot in imageview
             String filePath = imageFile.getPath();
-            Log.e("ddlldld",filePath);
-
-            shareImage(new File(filePath));
-            //   Bitmap ssbitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
+            Log.e("ddlldld", filePath);
+            if (mode == 1) {
+                shareImage(new File(filePath));
+            } else {
+                sendData(filePath);
+                //printPhoto(FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider",new File(filePath)));
+            }
+//   Bitmap ssbitmap = BitmapFactory.decodeFile(imageFile.getAbsolutePath());
 
         } catch (Exception e) {
             // Several error may come out with file handling or DOM
-            Log.e("ddlldld",e.toString());
+            Log.e("ddlldld", e.toString());
         }
     }
 
@@ -290,8 +351,7 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
     }
 
     private void shareImage(File file) {
-        Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider",file);
-
+        Uri uri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", file);
 
 
         Intent intent = new Intent();
@@ -308,4 +368,165 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
         }
     }
 
+    // this will find a bluetooth printer device
+    void findBT() {
+
+        try {
+            mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
+
+            if (!mBluetoothAdapter.isEnabled()) {
+                Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                startActivityForResult(enableBluetooth, 0);
+            }
+
+            Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+            CreateDialogAlert(this, pairedDevices);
+
+            //    Toast.makeText(this, "Bluetooth device found." + mmDevice.getName() + pairedDevices.size(), Toast.LENGTH_LONG).show();
+            //     myLabel.setText("Bluetooth device found.");
+
+        } catch (Exception e) {
+            Log.e("ldkkd", e.toString());
+        }
+    }
+
+    public void CreateDialogAlert(Context context, Set<BluetoothDevice> bluetoothDeviceList) {
+        List<BluetoothDevice> bluetoothDeviceList1 = new ArrayList<>();
+        bluetoothDeviceList1.addAll(bluetoothDeviceList);
+        dialog2 = new AlertDialog.Builder(context)
+                .create();
+
+        DialogBluthoosBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.dialog_bluthoos, null, false);
+        BluthoosAdapter bluetoothAdapter = new BluthoosAdapter(context, bluetoothDeviceList1);
+        binding.bluthoos.setLayoutManager(new LinearLayoutManager(context));
+        binding.bluthoos.setAdapter(bluetoothAdapter);
+
+        dialog2.getWindow().getAttributes().windowAnimations = R.style.Theme_App;
+        dialog2.setCanceledOnTouchOutside(false);
+        dialog2.setView(binding.getRoot());
+        dialog2.show();
+    }
+
+    public void openBT(BluetoothDevice bluetoothDevice) throws IOException {
+        try {
+            dialog2.dismiss();
+
+            mmDevice = bluetoothDevice;
+            // Standard SerialPortService ID
+            UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
+            mmSocket = mmDevice.createRfcommSocketToServiceRecord(uuid);
+            mmSocket.connect();
+            mmOutputStream = mmSocket.getOutputStream();
+            inputStream = mmSocket.getInputStream();
+
+            beginListenForData();
+
+            // myLabel.setText("Bluetooth Opened");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /*
+     * after opening a connection to bluetooth printer device,
+     * we have to listen and check if a data were sent to be printed.
+     */
+    void sendData(String strPath) throws IOException {
+
+
+        Bitmap imageBit = BitmapFactory.decodeFile(strPath);
+
+        ByteArrayOutputStream blob = new ByteArrayOutputStream();
+        imageBit.compress(Bitmap.CompressFormat.PNG, 0, blob);
+        byte[] bitmapdata = blob.toByteArray();
+
+      binding.image.setImageBitmap(imageBit);
+
+
+        mmOutputStream.write(bitmapdata);
+        // tell the user data were sent
+      //  myLabel.setText("Data Sent");
+
+    }
+    void beginListenForData() {
+        try {
+            final Handler handler = new Handler();
+
+            // this is the ASCII code for a newline character
+            final byte delimiter = 10;
+
+            stopWorker = false;
+            readBufferPosition = 0;
+            readBuffer = new byte[1024];
+
+            workerThread = new Thread(new Runnable() {
+                public void run() {
+
+                    while (!Thread.currentThread().isInterrupted() && !stopWorker) {
+
+                        try {
+
+                            int bytesAvailable = inputStream.available();
+
+                            if (bytesAvailable > 0) {
+
+                                byte[] packetBytes = new byte[bytesAvailable];
+                                inputStream.read(packetBytes);
+
+                                for (int i = 0; i < bytesAvailable; i++) {
+
+                                    byte b = packetBytes[i];
+                                    if (b == delimiter) {
+
+                                        byte[] encodedBytes = new byte[readBufferPosition];
+                                        System.arraycopy(
+                                                readBuffer, 0,
+                                                encodedBytes, 0,
+                                                encodedBytes.length
+                                        );
+
+                                        // specify US-ASCII encoding
+                                        final String data = new String(encodedBytes, "US-ASCII");
+                                        readBufferPosition = 0;
+
+                                        // tell the user data were sent to bluetooth printer device
+                                        handler.post(new Runnable() {
+                                            public void run() {
+                                                // myLabel.setText(data);
+                                            }
+                                        });
+
+                                    } else {
+                                        readBuffer[readBufferPosition++] = b;
+                                    }
+                                }
+                            }
+
+                        } catch (IOException ex) {
+                            stopWorker = true;
+                        }
+
+                    }
+                }
+            });
+
+            workerThread.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+//    void closeBT() throws IOException {
+//        try {
+//            stopWorker = true;
+//            mmOutputStream.close();
+//            mmInputStream.close();
+//            mmSocket.close();
+//            myLabel.setText("Bluetooth Closed");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

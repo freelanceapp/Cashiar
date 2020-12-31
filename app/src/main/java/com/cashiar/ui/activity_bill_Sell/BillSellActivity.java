@@ -453,8 +453,7 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
     void beginListenForData() {
         try {
             final Handler handler = new Handler();
-
-            // this is the ASCII code for a newline character
+            // This is the ASCII code for a newline character
             final byte delimiter = 10;
 
             stopWorker = false;
@@ -463,40 +462,25 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
 
             workerThread = new Thread(new Runnable() {
                 public void run() {
-
-                    while (!Thread.currentThread().isInterrupted() && !stopWorker) {
+                    while (!Thread.currentThread().isInterrupted()
+                            && !stopWorker) {
 
                         try {
 
                             int bytesAvailable = inputStream.available();
-
                             if (bytesAvailable > 0) {
-
                                 byte[] packetBytes = new byte[bytesAvailable];
                                 inputStream.read(packetBytes);
-
                                 for (int i = 0; i < bytesAvailable; i++) {
-
                                     byte b = packetBytes[i];
                                     if (b == delimiter) {
-
                                         byte[] encodedBytes = new byte[readBufferPosition];
-                                        System.arraycopy(
-                                                readBuffer, 0,
+                                        System.arraycopy(readBuffer, 0,
                                                 encodedBytes, 0,
-                                                encodedBytes.length
-                                        );
-
-                                        // specify US-ASCII encoding
-                                        final String data = new String(encodedBytes, "US-ASCII");
+                                                encodedBytes.length);
+                                        final String data = new String(
+                                                encodedBytes, "US-ASCII");
                                         readBufferPosition = 0;
-
-                                        // tell the user data were sent to bluetooth printer device
-                                        handler.post(new Runnable() {
-                                            public void run() {
-                                                // myLabel.setText(data);
-                                            }
-                                        });
 
                                     } else {
                                         readBuffer[readBufferPosition++] = b;
@@ -506,27 +490,40 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
 
                         } catch (IOException ex) {
                             stopWorker = true;
+                            try {
+                                closeBT();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
                         }
 
+                    }
+                    try {
+                        closeBT();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
                 }
             });
 
             workerThread.start();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+    }
+        void closeBT() throws IOException {
+        try {
+            stopWorker = true;
+            mmOutputStream.close();
+            inputStream.close();
+            mmSocket.close();
+           // myLabel.setText("Bluetooth Closed");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-//    void closeBT() throws IOException {
-//        try {
-//            stopWorker = true;
-//            mmOutputStream.close();
-//            mmInputStream.close();
-//            mmSocket.close();
-//            myLabel.setText("Bluetooth Closed");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

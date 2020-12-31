@@ -214,7 +214,6 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
             @Override
             public void onClick(View view) {
                 //   takeScreenshot(2);
-                findBT();
                 takeScreenshot(2);
 
             }
@@ -435,6 +434,7 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
      */
     void sendData(String strPath) throws IOException {
 
+        findBT();
 
         Bitmap imageBit = BitmapFactory.decodeFile(strPath);
 
@@ -448,6 +448,7 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
         mmOutputStream.write(bitmapdata);
         // tell the user data were sent
       //  myLabel.setText("Data Sent");
+
 
     }
     void beginListenForData() {

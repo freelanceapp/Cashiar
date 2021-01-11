@@ -61,11 +61,15 @@ import com.cashiar.mvp.activity_bill_sell_mvp.BillSellActivityView;
 import com.cashiar.mvp.activity_payment_sell_mvp.ActivityPAymentSellPresenter;
 import com.cashiar.mvp.activity_payment_sell_mvp.PaymentSellActivityView;
 import com.cashiar.preferences.Preferences;
+import com.cashiar.printer.PrintPicture;
+import com.cashiar.printer.PrinterManager;
+import com.cashiar.printerUtils.ESCUtil;
 import com.cashiar.share.Common;
 import com.cashiar.tags.Tags;
 import com.cashiar.ui.activity_add_Customer.AddCustomerActivity;
 import com.cashiar.ui.activity_cart_buy.CartBuyActivity;
 import com.squareup.picasso.Picasso;
+import com.wdullaer.materialdatetimepicker.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -96,6 +100,7 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
     private double paid;
     private String taxamount = "0";
     private Preferences preferences;
+    private static final int D80MMWIDTH = 576;
     private List<ItemCartModel> itemCartModelList;
     private ProductsSellAdapter productsSellAdapter;
     private String currecny = "";
@@ -433,24 +438,31 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
      * we have to listen and check if a data were sent to be printed.
      */
     void sendData(String strPath) throws IOException {
-
         findBT();
 
+
         Bitmap imageBit = BitmapFactory.decodeFile(strPath);
+        int height = D80MMWIDTH * imageBit.getHeight() / imageBit.getWidth();
 
         ByteArrayOutputStream blob = new ByteArrayOutputStream();
         imageBit.compress(Bitmap.CompressFormat.PNG, 0, blob);
-        byte[] bitmapdata = blob.toByteArray();
 
-      binding.image.setImageBitmap(imageBit);
+        byte[] bitmapdata = blob.toByteArray();
+       // byte[] command = Utils.decodeBitmap(imageBit);
+      // bitmapdata= ESCUtil.selectBitmap(imageBit,4);
+        bitmapdata = PrintPicture.POS_PrintBMP(imageBit, 400, 4);
+      //  mmDevice.write(sendData);
+      //  binding.image.setImageBitmap(imageBit);
 
 
         mmOutputStream.write(bitmapdata);
+
         // tell the user data were sent
-      //  myLabel.setText("Data Sent");
+        //  myLabel.setText("Data Sent");
 
 
     }
+
     void beginListenForData() {
         try {
             final Handler handler = new Handler();
@@ -516,15 +528,16 @@ public class BillSellActivity extends AppCompatActivity implements BillSellActiv
         }
 
     }
-        void closeBT() throws IOException {
+    void closeBT() throws IOException {
         try {
             stopWorker = true;
             mmOutputStream.close();
             inputStream.close();
             mmSocket.close();
-           // myLabel.setText("Bluetooth Closed");
+            // myLabel.setText("Bluetooth Closed");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 }

@@ -319,10 +319,10 @@
                         </FrameLayout>
 
                         <FrameLayout
+                            android:id="@+id/flreport"
                             android:layout_width="0dp"
                             android:layout_height="@dimen/_120sdp"
                             android:layout_margin="@dimen/_7sdp"
-                            android:visibility="gone"
                             android:layout_weight="1">
 
                             <LinearLayout

@@ -15,6 +15,7 @@ import com.cashiar.models.CreateBuyOrderModel;
 import com.cashiar.models.CreateOrderModel;
 import com.cashiar.models.PlaceGeocodeData;
 import com.cashiar.models.PlaceMapDetailsData;
+import com.cashiar.models.SettingModel;
 import com.cashiar.models.SingleProductModel;
 import com.cashiar.models.Slider_Model;
 import com.cashiar.models.UserModel;
@@ -534,6 +535,28 @@ public interface Service {
             @Field("phone") String phone,
             @Field("address") String address,
             @Field("supplier_id") String supplier_id
+
+
+
+    );
+    @FormUrlEncoded
+    @POST("api/purchaseCollectionReport")
+    Call<SettingModel> getpurchase(
+            @Header("Authorization") String Authorization,
+            @Field("type") String type,
+            @Field("from") String from,
+            @Field("to") String to
+
+
+
+    );
+    @FormUrlEncoded
+    @POST("api/salesCollectionReport")
+    Call<SettingModel> getsales(
+            @Header("Authorization") String Authorization,
+            @Field("type") String type,
+            @Field("from") String from,
+            @Field("to") String to
 
 
 

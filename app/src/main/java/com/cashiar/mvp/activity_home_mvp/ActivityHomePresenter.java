@@ -219,4 +219,8 @@ public class ActivityHomePresenter {
                     }
                 });
     }
+
+    public void report() {
+        view.reprot();
+    }
 }

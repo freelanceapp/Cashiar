@@ -196,6 +196,10 @@
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
+            android:name=".ui.activityacountmangment.AccountMangmentActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
             android:name=".ui.activity_add_cashier.AddCashierActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden" />

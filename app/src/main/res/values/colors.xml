@@ -15,4 +15,5 @@
     <color name="transparent">#00000000</color>
     <color name="depic">#9d9b9b</color>
     <color name="deptext">#949494</color>
+    <color name="rate_color">#FFD800</color>
 </resources>

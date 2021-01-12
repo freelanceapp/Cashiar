@@ -32,4 +32,6 @@ public interface HomeActivityView {
     void lang();
 
     void onprofileload(UserModel body);
+
+    void reprot();
 }

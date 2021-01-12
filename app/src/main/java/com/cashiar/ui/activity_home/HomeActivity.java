@@ -38,6 +38,7 @@ import com.cashiar.ui.activity_products_buy.ProductsBuyActivity;
 import com.cashiar.ui.activity_products_sell.ProductsSellActivity;
 import com.cashiar.ui.activity_profile.ProfileActivity;
 import com.cashiar.ui.activity_suppliers.SuppliersActivity;
+import com.cashiar.ui.activityacountmangment.AccountMangmentActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,7 +109,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(5)) {
+                if (persearch != null && persearch.contains(5)) {
                     presenter.customers();
                 } else {
                     Toast.makeText(HomeActivity.this, getResources().getString(R.string.dont_have_permission), Toast.LENGTH_LONG).show();
@@ -119,7 +120,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(1)) {
+                if (persearch != null && persearch.contains(1)) {
                     presenter.addcashier();
                 } else {
                     Toast.makeText(HomeActivity.this, getResources().getString(R.string.dont_have_permission), Toast.LENGTH_LONG).show();
@@ -130,7 +131,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(6)) {
+                if (persearch != null && persearch.contains(6)) {
                     presenter.suppliers();
                 } else {
                     Toast.makeText(HomeActivity.this, getResources().getString(R.string.dont_have_permission), Toast.LENGTH_LONG).show();
@@ -141,8 +142,8 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(8)) {
-                    if (body!=null&&body.getCurrency() != null && body.getTax_amount() != null) {
+                if (persearch != null && persearch.contains(8)) {
+                    if (body != null && body.getCurrency() != null && body.getTax_amount() != null) {
                         presenter.backsale();
                     } else {
                         Common.CreateDialogAlertProfile(HomeActivity.this, getResources().getString(R.string.please_complete_profile_first));
@@ -157,8 +158,8 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(9)) {
-                    if (body!=null&&body.getCurrency() != null && body.getTax_amount() != null) {
+                if (persearch != null && persearch.contains(9)) {
+                    if (body != null && body.getCurrency() != null && body.getTax_amount() != null) {
 
                         presenter.backbuy();
                     } else {
@@ -173,8 +174,8 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
         binding.llSell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (persearch!=null&&persearch.contains(3)) {
-                    if (body!=null&&body.getCurrency() != null && body.getTax_amount() != null) {
+                if (persearch != null && persearch.contains(3)) {
+                    if (body != null && body.getCurrency() != null && body.getTax_amount() != null) {
 
                         presenter.addbillsell();
                     } else {
@@ -191,8 +192,8 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(4)) {
-                    if (body!=null&&body.getCurrency() != null && body.getTax_amount() != null) {
+                if (persearch != null && persearch.contains(4)) {
+                    if (body != null && body.getCurrency() != null && body.getTax_amount() != null) {
 
                         presenter.addbillBuy();
                     } else {
@@ -208,7 +209,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(10)) {
+                if (persearch != null && persearch.contains(10)) {
                     presenter.Expenses();
                 } else {
                     Toast.makeText(HomeActivity.this, getResources().getString(R.string.dont_have_permission), Toast.LENGTH_LONG).show();
@@ -219,7 +220,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(2)) {
+                if (persearch != null && persearch.contains(2)) {
                     presenter.addproducts();
                 } else {
                     Toast.makeText(HomeActivity.this, getResources().getString(R.string.dont_have_permission), Toast.LENGTH_LONG).show();
@@ -231,7 +232,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(5)) {
+                if (persearch != null && persearch.contains(5)) {
                     presenter.customers();
                 } else {
                     Toast.makeText(HomeActivity.this, getResources().getString(R.string.dont_have_permission), Toast.LENGTH_LONG).show();
@@ -242,7 +243,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(6)) {
+                if (persearch != null && persearch.contains(6)) {
                     presenter.suppliers();
                 } else {
                     Toast.makeText(HomeActivity.this, getResources().getString(R.string.dont_have_permission), Toast.LENGTH_LONG).show();
@@ -252,8 +253,8 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
         binding.fraddbillsell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (persearch!=null&&persearch.contains(3)) {
-                    if (body!=null&&body.getCurrency() != null && body.getTax_amount() != null) {
+                if (persearch != null && persearch.contains(3)) {
+                    if (body != null && body.getCurrency() != null && body.getTax_amount() != null) {
 
                         presenter.addbillsell();
                     } else {
@@ -269,8 +270,8 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(4)) {
-                    if (body!=null&&body.getCurrency() != null && body.getTax_amount() != null) {
+                if (persearch != null && persearch.contains(4)) {
+                    if (body != null && body.getCurrency() != null && body.getTax_amount() != null) {
 
                         presenter.addbillBuy();
                     } else {
@@ -295,7 +296,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View view) {
 
-                if (persearch!=null&&persearch.contains(10)) {
+                if (persearch != null && persearch.contains(10)) {
                     presenter.Expenses();
                 } else {
                     Toast.makeText(HomeActivity.this, getResources().getString(R.string.dont_have_permission), Toast.LENGTH_LONG).show();
@@ -318,6 +319,24 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             @Override
             public void onClick(View v) {
                 presenter.lang();
+            }
+        });
+        binding.flreport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (persearch != null && persearch.contains(7)) {
+                    if (body != null && body.getCurrency() != null && body.getTax_amount() != null) {
+
+                        presenter.report();
+                    } else {
+
+                        Common.CreateDialogAlertProfile(HomeActivity.this, getResources().getString(R.string.please_complete_profile_first));
+
+                    }
+                } else {
+                    Toast.makeText(HomeActivity.this, getResources().getString(R.string.dont_have_permission), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -408,6 +427,12 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
         this.currency = body.getCurrency();
         this.body = body;
 
+    }
+
+    @Override
+    public void reprot() {
+        Intent intent = new Intent(this, AccountMangmentActivity.class);
+        startActivity(intent);
     }
 
     @Override

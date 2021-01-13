@@ -44,7 +44,7 @@
                     android:layout_height="24dp"
                     android:clickable="false"
                     android:longClickable="false"
-                    android:padding="3dp"
+                    android:padding="@dimen/_3sdp"
                     android:rotation='@{lang.equals("en")?180:0}'
                     android:src="@drawable/ic_right_arrow"
                     app:tint="@color/white" />

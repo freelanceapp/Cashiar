@@ -165,5 +165,7 @@
     <string name="total_expenses">Total Expenses</string>
     <string name="total_profits_after_deducting_expenses">Total profits after deducting expenses</string>
     <string name="profit_ratio">Profit ratio</string>
-    <string name="sales">Sales</string>
+    <string name="sales">Profits</string>
+    <string name="earn">Earn</string>
+    <string name="most_sale">Most Sale Products</string>
 </resources>

@@ -15,6 +15,9 @@ import com.cashiar.adapters.ViewPagerAdapter;
 import com.cashiar.databinding.FragmentOverviewBinding;
 import com.cashiar.preferences.Preferences;
 import com.cashiar.ui.activityacountmangment.AccountMangmentActivity;
+import com.cashiar.ui.activityacountmangment.fragments.overview.overviewchild.FragmentEarn;
+import com.cashiar.ui.activityacountmangment.fragments.overview.overviewchild.FragmentMostSale;
+import com.cashiar.ui.activityacountmangment.fragments.overview.overviewchild.FragmentSale;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +56,7 @@ public class FragmentOverView extends Fragment {
         addFragments_Titles();
         binding.pager.setOffscreenPageLimit(fragmentList.size());
 
-        adapter = new ViewPagerAdapter(activity.getSupportFragmentManager());
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragments(fragmentList);
         adapter.addTitles(titles);
         binding.pager.setAdapter(adapter);
@@ -62,10 +65,16 @@ public class FragmentOverView extends Fragment {
     }
 
     private void addFragments_Titles() {
-        fragmentList.add(FragmentOverView.newInstance());
+        fragmentList.add(FragmentMostSale.newInstance());
 
+        fragmentList.add(FragmentEarn.newInstance());
 
-        titles.add(getString(R.string.aggregate_data));
+        fragmentList.add(FragmentSale.newInstance());
+
+        titles.add(getString(R.string.most_sale));
+
+        titles.add(getString(R.string.earn));
+        titles.add(getString(R.string.sales));
 
 
     }

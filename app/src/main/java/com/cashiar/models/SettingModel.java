@@ -1,6 +1,7 @@
 package com.cashiar.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class SettingModel implements Serializable {
     private double total_sales;
@@ -15,6 +16,12 @@ public class SettingModel implements Serializable {
     private double total_purchase;
     private double total_paid_purchase;
     private double total_remaining_purchase;
+    private double today;
+    private double yesterday;
+    private double earningThisMonth;
+    private double earningLastMonth;
+    private double all;
+
     public double getTotal_sales() {
         return total_sales;
     }
@@ -61,5 +68,25 @@ public class SettingModel implements Serializable {
 
     public double getTotal_remaining_purchase() {
         return total_remaining_purchase;
+    }
+
+    public double getToday() {
+        return today;
+    }
+
+    public double getYesterday() {
+        return yesterday;
+    }
+
+    public double getEarningThisMonth() {
+        return earningThisMonth;
+    }
+
+    public double getEarningLastMonth() {
+        return earningLastMonth;
+    }
+
+    public double getAll() {
+        return all;
     }
 }

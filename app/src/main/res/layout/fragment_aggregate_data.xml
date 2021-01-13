@@ -178,12 +178,12 @@
                 android:padding="@dimen/_5sdp">
 
                 <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
                     android:layout_gravity="center_vertical"
                     android:clickable="false"
                     android:longClickable="false"
-                    android:padding="3dp"
+                    android:padding="@dimen/_3sdp"
                     android:src="@drawable/ic_down_arrow"
                     app:tint="@color/white" />
 
@@ -204,12 +204,12 @@
                     android:layout_weight="1">
 
                     <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
                         android:layout_gravity="end|center_vertical"
                         android:clickable="false"
                         android:longClickable="false"
-                        android:padding="3dp"
+                        android:padding="@dimen/_3sdp"
                         android:src="@drawable/ic_calendar"
                         app:tint="@color/white" />
                 </FrameLayout>

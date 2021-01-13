@@ -561,4 +561,23 @@ public interface Service {
 
 
     );
+    @POST("api/earningsReport")
+    Call<SettingModel> getearnproduct(
+            @Header("Authorization") String Authorization
+
+
+    );
+
+    @POST("api/salesReport")
+    Call<SettingModel> getsaleproduct(
+            @Header("Authorization") String Authorization
+
+
+    );
+    @GET("api/mostProductSales")
+    Call<AllProductsModel> getmostsaleproduct(
+            @Header("Authorization") String Authorization
+
+
+    );
 }

@@ -166,4 +166,6 @@
     <string name="total_profits_after_deducting_expenses">اجمالى الارباح بعد خصم المصروفات</string>
     <string name="profit_ratio">نسبة الارباح</string>
     <string name="sales">المبيعات</string>
+    <string name="earn">الارباح</string>
+    <string name="most_sale">المنتجات الاكثر مبيعا</string>
 </resources>

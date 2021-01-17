@@ -100,13 +100,14 @@ public class FragmentAggregateData extends Fragment {
                 binding.tvday.setText(activity.getResources().getString(R.string.day));
                 closeSheet();
                 type = "day";
-                getdata();
                 if(pos==0){
-                    type1=type;
+                    type1=activity.getResources().getString(R.string.day);
                 }
                 else {
-                    type2=type;
+                    type2=activity.getResources().getString(R.string.day);
                 }
+                getdata();
+
             }
         });
         binding.tvthismonth.setOnClickListener(new View.OnClickListener() {
@@ -115,13 +116,14 @@ public class FragmentAggregateData extends Fragment {
                 binding.tv.setText(activity.getResources().getString(R.string.this_month));
                 closeSheet();
                 type = "this_month";
-                getdata();
+
                 if(pos==0){
                     type1=activity.getResources().getString(R.string.this_month);
                 }
                 else {
                     type2=activity.getResources().getString(R.string.this_month);
                 }
+                getdata();
             }
         });
         binding.tvlsevday.setOnClickListener(new View.OnClickListener() {
@@ -130,13 +132,14 @@ public class FragmentAggregateData extends Fragment {
                 binding.tv.setText(activity.getResources().getString(R.string.last_seven_day));
                 closeSheet();
                 type = "last7days";
-                getdata();
                 if(pos==0){
                     type1=activity.getResources().getString(R.string.last_seven_day);
                 }
                 else {
                     type2=activity.getResources().getString(R.string.last_seven_day);
                 }
+                getdata();
+
             }
         });
         binding.tvextentofwork.setOnClickListener(new View.OnClickListener() {
@@ -145,13 +148,14 @@ public class FragmentAggregateData extends Fragment {
                 binding.tv.setText(activity.getResources().getString(R.string.extent_of_work));
                 closeSheet();
                 type = "all";
-                getdata();
                 if(pos==0){
                     type1=activity.getResources().getString(R.string.extent_of_work);
                 }
                 else {
                     type2=activity.getResources().getString(R.string.extent_of_work);
                 }
+                getdata();
+
             }
         });
         binding.tvlmonth.setOnClickListener(new View.OnClickListener() {
@@ -160,13 +164,14 @@ public class FragmentAggregateData extends Fragment {
                 binding.tv.setText(activity.getResources().getString(R.string.last_month));
                 closeSheet();
                 type = "last_month";
-                getdata();
                 if(pos==0){
                     type1=activity.getResources().getString(R.string.last_month);
                 }
                 else {
                     type2=activity.getResources().getString(R.string.last_month);
                 }
+                getdata();
+
             }
         });
         binding.tvlthrityday.setOnClickListener(new View.OnClickListener() {
@@ -175,13 +180,14 @@ public class FragmentAggregateData extends Fragment {
                 binding.tv.setText(activity.getResources().getString(R.string.last_thirty_day));
                 closeSheet();
                 type = "last30days";
-                getdata();
                 if(pos==0){
                     type1=activity.getResources().getString(R.string.last_thirty_day);
                 }
                 else {
                     type2=activity.getResources().getString(R.string.last_thirty_day);
                 }
+                getdata();
+
 
             }
         });
@@ -191,13 +197,14 @@ public class FragmentAggregateData extends Fragment {
                 binding.tv.setText(activity.getResources().getString(R.string.yesterday));
                 closeSheet();
                 type = "yesterday";
-                getdata();
                 if(pos==0){
                     type1=activity.getResources().getString(R.string.yesterday);
                 }
                 else {
                     type2=activity.getResources().getString(R.string.yesterday);
                 }
+                getdata();
+
 
             }
         });
@@ -207,13 +214,14 @@ public class FragmentAggregateData extends Fragment {
                 binding.tv.setText(activity.getResources().getString(R.string.custom_history));
                 closeSheet();
                 type = "custom";
-                getdata();
                 if(pos==0){
                     type1=activity.getResources().getString(R.string.custom_history);
                 }
                 else {
                     type2=activity.getResources().getString(R.string.custom_history);
                 }
+                getdata();
+
             }
         });
     }

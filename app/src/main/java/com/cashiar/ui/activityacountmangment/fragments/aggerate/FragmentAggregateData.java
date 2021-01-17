@@ -99,7 +99,7 @@ public class FragmentAggregateData extends Fragment {
             public void onClick(View v) {
                 binding.tvday.setText(activity.getResources().getString(R.string.day));
                 closeSheet();
-                type = "day";
+                type = "today";
                 if(pos==0){
                     type1=activity.getResources().getString(R.string.day);
                 }

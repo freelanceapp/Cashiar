@@ -26,7 +26,7 @@ public class FragmentPurchases extends Fragment implements PurchasesFragmentView
     private AccountMangmentActivity activity;
     private FragmentPurchasesBinding binding;
     private Preferences preferences;
-    private String type = "day";
+    private String type = "today";
     private UserModel userModel;
     private String str = "", end = "";
     private FragmentPurchasesPresenter presenter;

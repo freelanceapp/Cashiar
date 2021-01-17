@@ -145,7 +145,7 @@
     <string name="aggregate_data">Aggregate data</string>
     <string name="overview">Overview</string>
     <string name="purchases">Purchases</string>
-    <string name="day">Day</string>
+    <string name="day">TodDay</string>
     <string name="total_purchases">Total purchases</string>
     <string name="total_amounts_paid">Total amounts paid</string>
     <string name="total_amounts_remaining_to_suppliers">Total amounts remaining to suppliers</string>

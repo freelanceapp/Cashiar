@@ -29,7 +29,7 @@ public class FragmentSales extends Fragment implements SalesFragmentView {
     private AccountMangmentActivity activity;
     private FragmentSalesBinding binding;
     private Preferences preferences;
-    private String type = "day";
+    private String type = "today";
     private UserModel userModel;
     private String str = "", end = "";
     private FragmentSalesPresenter presenter;

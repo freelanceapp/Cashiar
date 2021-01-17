@@ -2,6 +2,7 @@ package com.cashiar.ui.activityacountmangment.fragments.overview.overviewchild;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,10 @@ public class FragmentEarn extends Fragment implements EarnSaleFragmentView {
     }
 
     @Override
-    public void onpurchase(SettingModel body) {
+    public void onpurchase(SettingModel body)
+
+    {
+        Log.e("ldldldl","lskdkks");
         binding.setModel(body);
     }
 

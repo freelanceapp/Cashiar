@@ -561,14 +561,14 @@ public interface Service {
 
 
     );
-    @POST("api/earningsReport")
+    @GET("api/earningsReport")
     Call<SettingModel> getearnproduct(
             @Header("Authorization") String Authorization
 
 
     );
 
-    @POST("api/salesReport")
+    @GET("api/salesReport")
     Call<SettingModel> getsaleproduct(
             @Header("Authorization") String Authorization
 

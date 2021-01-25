@@ -428,13 +428,13 @@ public interface Service {
     Call<UserModel> Editprofilewithimage(
             @Header("Authorization") String Authorization,
             @Part("name") RequestBody name,
-            @Field("phone_code") RequestBody phone_code,
-            @Field("phone") RequestBody product_cost,
-            @Field("address") RequestBody address,
-            @Field("longitude") RequestBody longitude,
-            @Field("latitude") RequestBody latitude,
-            @Field("currency") RequestBody currency,
-            @Field("tax_amount") RequestBody tax_amount,
+            @Part("phone_code") RequestBody phone_code,
+            @Part("phone") RequestBody product_cost,
+            @Part("address") RequestBody address,
+            @Part("longitude") RequestBody longitude,
+            @Part("latitude") RequestBody latitude,
+            @Part("currency") RequestBody currency,
+            @Part("tax_amount") RequestBody tax_amount,
             @Part MultipartBody.Part image
 
 

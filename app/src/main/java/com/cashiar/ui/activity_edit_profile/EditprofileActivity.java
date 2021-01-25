@@ -523,6 +523,7 @@ public class EditprofileActivity extends AppCompatActivity implements Editprofil
             File file = new File(Common.getImagePath(this, uri));
             Picasso.get().load(file).fit().into(binding.image);
 
+
         } else if (requestCode == CAMERA_REQ && resultCode == Activity.RESULT_OK && data != null) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
 
@@ -549,6 +550,6 @@ public class EditprofileActivity extends AppCompatActivity implements Editprofil
     @Override
     protected void onRestart() {
         super.onRestart();
-        presenter.getprofile(userModel);
+       // presenter.getprofile(userModel);
     }
 }

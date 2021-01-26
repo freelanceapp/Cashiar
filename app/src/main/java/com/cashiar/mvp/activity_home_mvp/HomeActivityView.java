@@ -34,4 +34,6 @@ public interface HomeActivityView {
     void onprofileload(UserModel body);
 
     void reprot();
+
+    void contactus();
 }

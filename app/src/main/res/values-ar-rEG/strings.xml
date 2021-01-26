@@ -168,4 +168,14 @@
     <string name="sales">المبيعات</string>
     <string name="earn">الارباح</string>
     <string name="most_sale">المنتجات الاكثر مبيعا</string>
+    <string name="contact_us">اتصل بنا</string>
+
+    <string name="whats_app">واتس اب</string>
+    <string name="twitter">تويتر</string>
+    <string name="facebook">فيس بوك</string>
+    <string name="instegram">انستجرام</string>
+    <string name="telegram">تيليجرام</string>
+    <string name="youtube">يوتيوب</string>
+    <string name="server_error">خطأ سيرفر</string>
+    <string name="contactus">اتصل بنا</string>
 </resources>

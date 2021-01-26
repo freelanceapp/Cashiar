@@ -42,23 +42,18 @@ public interface Listeners {
     }
 
 
-    interface SettingActions
-    {
-        void contactUs();
-        void terms();
-        void aboutApp();
-        void logout();
-        void share();
-        void rateApp();
-        void arLang();
-        void enLang();
-        void whatsapp();
+    interface ContactActions {
+        void email();
+
+        void facebook();
+
+        void whats();
+
         void twitter();
-        void instagram();
-
+        void instegram();
+        void telegram();
+        void youtube();
     }
-
-
 
     interface ForgetListner
     {

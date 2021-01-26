@@ -203,6 +203,10 @@
             android:name=".ui.activity_add_cashier.AddCashierActivity"
             android:configChanges="keyboardHidden|screenSize|orientation"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".ui.activity_contactus.ContactusActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".ui.activity_splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

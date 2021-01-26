@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <variable
+            name="contactlistener"
+            type="com.cashiar.interfaces.Listeners.ContactActions" />
+
+        <variable
+            name="lang"
+            type="String" />
+
+        <variable
+            name="model"
+            type="com.cashiar.models.SettingModel" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="content"
+            type="String" />
+
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/gray"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                app:contentInsetEnd="0dp"
+                app:contentInsetLeft="0dp"
+                app:contentInsetRight="0dp"
+                app:contentInsetStart="0dp"
+
+                >
+
+                <LinearLayout
+                    android:id="@+id/llBack"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+
+                    >
+
+                    <ImageView
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:clickable="false"
+                        android:longClickable="false"
+                        android:padding="8dp"
+                        android:rotation='@{lang.equals("ar")?180:0}'
+                        android:src="@drawable/ic_arrow_left"
+                        android:tint="@color/white"
+
+                        />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:clickable="false"
+                        android:gravity="center"
+                        android:longClickable="false"
+                        android:text="@string/contact_us"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:fillViewport="true"
+                android:fitsSystemWindows="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->contactlistener.email()}"
+                        android:visibility='@{model.google_plus.equals("#")?View.GONE:View.VISIBLE,default=gone}'
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="top"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_gmail" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+
+                            android:gravity="center_vertical"
+                            android:text="@string/email"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvemail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->contactlistener.email()}"
+                        android:text="@{model.google_plus}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:visibility='@{model.google_plus.equals("#")?View.GONE:View.VISIBLE,default=gone}'
+
+                        />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->contactlistener.facebook()}"
+                        android:visibility='@{model.facebook.equals("#")?View.GONE:View.VISIBLE,default=gone}'
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="top"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_facebook" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center_vertical"
+
+                            android:gravity="center_vertical"
+                            android:text="@string/facebook"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->contactlistener.facebook()}"
+                        android:text="@{model.facebook}"
+                        android:textColor="@color/black"
+
+                        android:textSize="16sp"
+                        android:visibility='@{model.facebook.equals("#")?View.GONE:View.VISIBLE,default=gone}' />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->contactlistener.whats()}"
+                        android:visibility='@{model.whatsapp.equals("#")?View.GONE:View.VISIBLE,default=gone}'
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="top"
+                            android:src="@drawable/ic_whatsapp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+
+                            android:gravity="center_vertical"
+                            android:text="@string/whats_app"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+
+                            />
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tvwhats"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->contactlistener.whats()}"
+                        android:text="@{model.whatsapp}"
+
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:visibility='@{model.whatsapp.equals("#")?View.GONE:View.VISIBLE,default=gone}' />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->contactlistener.twitter()}"
+
+                        android:visibility='@{model.twitter.equals("#")?View.GONE:View.VISIBLE,default=gone}'>
+
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="top"
+                            android:src="@drawable/ic_twitter" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+
+                            android:gravity="center_vertical"
+                            android:text="@string/twitter"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvtwitter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->contactlistener.twitter()}"
+                        android:text="@{model.twitter}"
+                        android:textColor="@color/black"
+
+                        android:textSize="16sp"
+                        android:visibility='@{model.twitter.equals("#")?View.GONE:View.VISIBLE,default=gone}' />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->contactlistener.instegram()}"
+                        android:visibility='@{model.instagram.equals("#")?View.GONE:View.VISIBLE,default=gone}'
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="top"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_instagram" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center_vertical"
+
+                            android:gravity="center_vertical"
+                            android:text="@string/instegram"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->contactlistener.instegram()}"
+                        android:text="@{model.instagram}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+
+                        android:visibility='@{model.instagram.equals("#")?View.GONE:View.VISIBLE,default=gone}' />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->contactlistener.telegram()}"
+                        android:visibility='@{model.telegram.equals("#")?View.GONE:View.VISIBLE,default=gone}'
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="top"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_telegram" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center_vertical"
+
+                            android:gravity="center_vertical"
+                            android:text="@string/telegram"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->contactlistener.telegram()}"
+                        android:text="@{model.telegram}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+
+                        android:visibility='@{model.telegram.equals("#")?View.GONE:View.VISIBLE,default=gone}' />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:onClick="@{()->contactlistener.youtube()}"
+                        android:visibility='@{model.youtube.equals("#")?View.GONE:View.VISIBLE,default=gone}'
+
+                        >
+
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="top"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_youtube" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="35dp"
+                            android:layout_gravity="center_vertical"
+
+                            android:gravity="center_vertical"
+                            android:text="@string/youtube"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+
+                            />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginRight="30dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->contactlistener.youtube()}"
+
+                        android:text="@{model.youtube}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:visibility='@{model.youtube.equals("#")?View.GONE:View.VISIBLE,default=gone}' />
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</layout>

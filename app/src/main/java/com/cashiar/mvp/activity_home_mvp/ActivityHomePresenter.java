@@ -223,4 +223,8 @@ public class ActivityHomePresenter {
     public void report() {
         view.reprot();
     }
+
+    public void contactus() {
+        view.contactus();
+    }
 }

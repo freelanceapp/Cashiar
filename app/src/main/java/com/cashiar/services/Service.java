@@ -580,4 +580,6 @@ public interface Service {
 
 
     );
+    @GET("api/app/info")
+    Call<SettingModel> getSetting();
 }

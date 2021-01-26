@@ -168,4 +168,13 @@
     <string name="sales">Profits</string>
     <string name="earn">Earn</string>
     <string name="most_sale">Most Sale Products</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="whats_app">whats App</string>
+    <string name="twitter">Twitter</string>
+    <string name="facebook">Facebook</string>
+    <string name="instegram">Instegram</string>
+    <string name="telegram">Telegram</string>
+    <string name="youtube">Youtube</string>
+    <string name="server_error">Server Error</string>
+    <string name="contactus">ContactUs</string>
 </resources>

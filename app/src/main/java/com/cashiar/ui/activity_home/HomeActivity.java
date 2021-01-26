@@ -29,6 +29,7 @@ import com.cashiar.ui.Activity_add_accout.AddAccountActivity;
 import com.cashiar.ui.activity_add_cashier.AddCashierActivity;
 import com.cashiar.ui.activity_all_bill_buy.AllBillBuyActivity;
 import com.cashiar.ui.activity_all_bill_sell.AllBillSellActivity;
+import com.cashiar.ui.activity_contactus.ContactusActivity;
 import com.cashiar.ui.activity_customers.CustomersActivity;
 import com.cashiar.ui.activity_departments.DepartmentActivity;
 import com.cashiar.ui.activity_expenses.ExpensesActivity;
@@ -339,6 +340,12 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
                 }
             }
         });
+        binding.llcontactus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.contactus();
+            }
+        });
     }
 
 
@@ -432,6 +439,12 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     @Override
     public void reprot() {
         Intent intent = new Intent(this, AccountMangmentActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void contactus() {
+        Intent intent = new Intent(this, ContactusActivity.class);
         startActivity(intent);
     }
 
